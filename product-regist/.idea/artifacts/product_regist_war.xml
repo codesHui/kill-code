@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="product-regist:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="imi.war">
-      <element id="artifact" artifact-name="product-regist:war exploded" />
-    </root>
-  </artifact>
-</component>

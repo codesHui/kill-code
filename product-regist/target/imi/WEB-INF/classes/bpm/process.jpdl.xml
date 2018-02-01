@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="review" xmlns="http://jbpm.org/4.4/jpdl">
+   <start g="272,18,48,48" name="begin">
+      <transition g="-56,-22" name="复查" to="待核查"/>
+   </start>
+   <state g="246,118,92,52" name="待核查">
+      <transition g="-79,-22" name="给谁复查" to="exclusive1"/>
+   </state>
+   <decision g="266,190,40,48" name="exclusive1">
+      <transition g="129,215:-52,-22" name="给初级复核" to="初级复查"/>
+      <transition g="-52,-22" name="给中级复核" to="中级复查"/>
+      <transition g="582,218:-52,-22" name="给高级复核" to="高级复查"/>
+   </decision>
+   <task g="81,320,92,52" name="初级复查">
+      <transition g="-69,-22" name="上报中级" to="中级复查"/>
+      <transition g="-69,-22" name="to 通过复查" to="通过复查"/>
+   </task>
+   <task g="263,317,92,52" name="中级复查">
+      <transition g="-69,-22" name="to 风险通报" to="风险通报"/>
+      <transition g="-52,-22" name="发起核查" to="发起核查"/>
+      <transition g="-69,-22" name="to 通过复查" to="通过复查"/>
+   </task>
+   <task g="537,681,92,52" name="高级复查">
+      <transition g="-52,-22" name="发起核查" to="发起核查"/>
+      <transition g="-50,-22" name="结束审核" to="end1"/>
+   </task>
+   <end g="263,574,48,48" name="end1"/>
+   <task g="457,442,92,52" name="发起核查">
+      <transition g="-50,-22" name="结束复查" to="end1"/>
+   </task>
+   <task g="263,438,92,52" name="风险通报">
+      <transition g="-50,-22" name="结束复查" to="end1"/>
+   </task>
+   <task g="78,445,100,39" name="通过复查">
+      <transition g="-50,-22" name="结束复查" to="end1"/>
+      <transition g="127,699:-69,-22" name="to 高级复查" to="高级复查"/>
+   </task>
+
+
+</process>

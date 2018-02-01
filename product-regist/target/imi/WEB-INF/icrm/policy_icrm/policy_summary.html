@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "icrmNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>汇总信息查询</title>
+<!--<@cssJs /> -->
+<style type="text/css">
+*+html .leftbox .titlename{margin-right:-3px}/* IE7 */ 
+*+html  .input_div{ /* background-color: olive; */padding: 0px;text-align: left;}/* IE7 */ 
+.yijinav  a{
+text-decoration: none;color: #3F3F3F;
+}
+.nav_off{
+display: none;
+}
+
+.acitve {
+  background-color: rgb(230, 227, 227);;
+  color: #3C9CD3;
+}
+
+
+</style>
+	</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+	<!-- <@icrmnav title="信息管理"  second="汇总信息查询"/> -->
+		<script type="text/javascript" src="<@s.url '/resources/datePicker/WdatePicker.js'/>" ></script>
+		<form action="<@s.url'/icrm/summaryLst'/>" method="post" id="submit_summary">
+		<div class="product_condition" align="center" style="margin-top: 40px;">
+				<div class="content">
+					<div class="float_left leftbox" style="margin-left: 25px;">
+						<div class="hangstyle margin_top_10">
+							<div class="float_left titlename">起始时间：</div>
+							<div class="input_div" style="width: 300px;">
+								<input type="text" name="summaryStartTime"  value="${policySummaryInfo.summaryStartTime}" class="datePicker" onClick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM'})" >
+							<div>${policySummaryInfo.summaryStartTime}</div>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">险种类别：</div>
+							<div class="input_div"  style="width: 300px;">
+						<!-- <@dictSelect value="${productInfo.riskType}" type="RISK" id="riskType" name="riskType" option="全部" showSelect=true onChange="getRiskName(this.options[this.selectedIndex].value);"/> -->
+						<!-- 由于上传文件中险种已经给死5个脚本，与项目经理商量后 方案：先写死 -->
+						<@dictSelect value="${policySummaryInfo.riskType}" type="REPORT_RISK" id="riskType" name="riskType" option="全部" showSelect=true />
+					</div>
+						</div>
+						
+					</div>
+				<div class="float_left leftbox">
+					
+						<div class="hangstyle margin_top_10">
+							<div class="float_left titlename">结束时间：</div>
+							<div class="input_div" style="width: 300px;">
+						<input type="text" name="summaryEndTime"  value="${policySummaryInfo.summaryEndTime}" class="datePicker" onClick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM'})">
+						
+					<div>${policySummaryInfo.summaryEndTime}</div>
+						</div>
+				</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">保险公司：</div>
+							<div class="input_div"  style="width: 300px;">
+								<@select id="reportUnit" datas=musers value="${policySummaryInfo.reportUnit}"
+							key="registeredCode" text="companyShortName" default="请选择"/>
+							</div>
+						</div>
+					
+						
+						<!-- <div class="hangstyle">
+							<div class="float_left titlename">投诉时间：</div>
+							<div class="input_div"  style="width: 300px;">
+								<input type="tel"  value="" name=""/>
+							
+							</div>
+						</div> -->
+						<!-- <div class="hangstyle">
+							<div class="float_left titlename"></div>
+							<div class="input_div" style="width: 300px;">
+								
+							</div>
+						</div> -->
+					</div>
+				</div>
+				<input id="hquerypage" name="page" type="hidden" >
+				<div class="bottomdiv">
+					<button onclick="select();">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>&nbsp;&nbsp;&nbsp;
+					<button onclick="importExcel();">导&nbsp;&nbsp;&nbsp;&nbsp;出</button>
+				</div>
+			</div>
+		</form>
+		<div class="product_content" align="center">
+			<div class="toptitle">
+				<div class="contentname" >
+				<div style="width:150px">保险公司</div>
+				<div>险种</div>
+				<div>年份</div>
+				<div>月份</div>
+				<div style="width:150px">保费金额(USD)</div>
+				<div style="width:150px">保费金额(JPY)</div>
+				<div style="width:150px">保费金额(EUR)</div>
+				<div style="width:150px">保费金额(GBP)</div>
+				<div style="width:150px">保费金额(CHF)</div>
+				<div style="width:150px">折币保费金额</div>
+				</div>
+			</div>
+			<div class="content_all">
+				<ul class="contentall_li">
+				
+				<#if policySummaryInfo??> 
+					<#list policySummaryInfo.list as vo>
+						<li>
+							<div class="lidiv">
+							<div style="width:120px">&nbsp;&nbsp;${vo.reportUnit}</div>
+							<div >&nbsp;&nbsp;${vo.riskName}</div>
+			 				<div >&nbsp;&nbsp;${vo.reportYear}</div>
+							<div >&nbsp;&nbsp;${vo.reportMonth}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.premUSD}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.premJPY}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.premEUR}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.premGBP}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.premCHF}</div>
+							<div style="width:140px">&nbsp;&nbsp;${vo.prem}</div>
+							
+							</div>
+						</li>
+					</#list>
+   		 		</#if> 
+				</ul>
+			
+			</div>
+			<div class="divbottom">
+			<div class="pager-plugin" id="pager"></div>
+		</div>		
+		</div>
+		<div class="fisrt_bottom_xian"></div>
+		<#include "ufoot.html"/>
+		<script type="text/javascript">
+			$(function(){
+				//单选按钮初始化
+				var productType = $("#productType").val();
+				var status = $("#status").val();     
+				if(productType == "" || productType == 0){
+					$("#category_all").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(productType == 1){
+					$("#category_pre").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(productType == 2){
+					$("#category_add").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(status == "" || status == 0){
+					$("#status_all").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(status == 2){
+					$("#status_normal").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(status == 1){
+					$("#status_cancle").removeClass("radio_normal").addClass("radio_checked");
+				}
+				//单选按钮事件
+				$("#category_all").click(function(){
+					if($("#category_pre").hasClass("radio_checked")||$("#category_add").hasClass("radio_checked")){
+						$("#category_add").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_pre").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(0);
+					}
+				});
+				$("#category_pre").click(function(){
+					if($("#category_add").hasClass("radio_checked")||$("#category_all").hasClass("radio_checked")){
+						$("#category_add").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_pre").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(1);
+					}
+				});
+				$("#category_add").click(function(){
+					if($("#category_pre").hasClass("radio_checked")||$("#category_all").hasClass("radio_checked")){
+						$("#category_pre").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_add").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(2);
+					}
+				});
+				$("#status_all").click(function(){
+					if($("#status_cancle").hasClass("radio_checked")||$("#status_normal").hasClass("radio_checked")){
+						$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(0);
+					}
+				});
+				$("#status_normal").click(function(){
+					if($("#status_cancle").hasClass("radio_checked")||$("#status_all").hasClass("radio_checked")){
+						$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_normal").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(2);
+					}
+				});
+				$("#status_cancle").click(function(){
+					if($("#status_normal").hasClass("radio_checked")||$("#status_all").hasClass("radio_checked")){
+						$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_cancle").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(1);
+					}
+				});
+				
+				
+				//给列表设置样式,行数为单数样式为#----.contentall_li
+				$(".contentall_li li:even").css("background-color","#E6E3E3");
+				$(".contentall_li li:odd").css("background-color","#F2F2F2");
+				$(".selectstyle ul li:not(.optionselect)").hover(
+					function(){
+						$(this).css("background-color","#69AAEC");
+						$(this).css("color","#fff");
+					},
+					function(){
+						$(this).css("background-color","#fff");
+						$(this).css("color","#333");
+					}
+				);
+				
+			    
+			});		
+			
+			//分页
+			PageClick = function(pageclickednumber) {
+		        $("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+		        //跳转
+		       // location = '?page='+pageclickednumber;
+		        $("#hquerypage").val(pageclickednumber);
+		        select();
+		    }
+			var total = "${policySummaryInfo.total}";
+			if('${policySummaryInfo.total}'.indexOf(",")>0){
+				total = '${policySummaryInfo.total}'.replace(",","");
+			}
+			
+		    if(total > 0)
+			{
+			   total = Math.floor(total%10==0?total/10:(total/10+1));
+			   var page = "${policySummaryInfo.page}";
+ 			   if('${policySummaryInfo.page}'.indexOf(",")>0){
+ 				  page = '${policySummaryInfo.page}'.replace(",","");
+ 			   }
+			   $("#pager").pager({ pagenumber: page, pagecount: total, buttonClickCallback: PageClick });
+			}
+		    
+
+			//筛选条件
+			function select(){
+				var path = "<@s.url'/icrm/summaryLst'/>" ;
+				$('#submit_summary').attr("action", path).submit();
+			}
+			//查看详情
+			function detail(id,riskType){
+				window.location.href="<@s.url '/admin/policy/details?riskType='/>"+riskType+"&policyId="+id;
+			}
+			//导出表格
+			function importExcel(){
+				var path = "<@s.url'/icrm/uploadSum'/>" ;
+				$('#submit_summary').attr("action", path).submit();
+			}
+			
+			//险种二级联动
+			  function getRiskName(key){
+				//$("#riskName").html("");
+				$("#riskName").append("<option value=''>全部</option>");
+				  $.ajax({
+				        type : "post",
+				        url : "<@s.url '/front/product/riskName'/>",
+				        data : {
+				        	key : $("#riskType").val()
+				        },
+				        dataType : "json",
+				        success : function(data) {
+				        	if(data.success)
+							{
+					           for(var i =0;i<data.data.length;i++){
+					        	   var dic=data.data[i].split("|");
+					        	   $("#riskName").append("<option value='" + dic[0] + "'>"  + dic[1] + "</option>"); 
+					          } 
+							}
+				        }
+				   });  
+			  }
+			
+			
+		    
+		</script>
+	</body>
+</html>

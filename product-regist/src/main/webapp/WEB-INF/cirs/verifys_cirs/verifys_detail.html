@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "cirsAdmin.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品查询</title>
+
+<!--<@cssJs /> -->
+<link href="<@s.url '/resources/css/uploadify.css'/>" rel="stylesheet" type="text/css" />   
+<script type="text/javascript" src="<@s.url '/resources/js/jquery.uploadify.js'/>"></script>
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+.submitziliao
+#fileQueue{
+
+height:60px;
+
+
+}
+.uploadify-queue-item{
+padding-top: 15px;
+}
+
+</style>
+	</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+		<!-- <@adminnav title="核查查询"  second="核查查询"/> -->
+		<!-- 审核部分 -->
+		<div class="product_manager_two height_385" align="center" >
+			<!-- height:405px 具体内容 -->
+			<div class="width_990">
+				<!-- 上部分 -->
+				<div class="shang" style="height: 380px;"> 
+					<!-- 左边 -->
+					<div class="shangleft margin_top_15">
+						<div class="onebox">
+							<div class="leftname">产品注册号</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.productNO}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品注册人</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.registeredPerson}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人姓名</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Name}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人电话</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Phone}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人邮箱</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Email}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">法律责任人</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.legalPerson}</span>
+							</div>
+						</div>
+						<div class="twobox height_75">
+							<div class="leftname beizhu">备注</div>
+							<div class="threediv" style="height: 73px;">
+								<p class="pstyle">${p.description}</p>
+							</div>
+						</div>
+						<#if (p.productLanguage !="中文")>
+							<br>
+							<div class="onebox">
+								<div class="leftname">外文条款注册原因</div>
+								<div class="nochange" style="width: 888px;">
+									<span style="padding-left: 7px;">${p.proRegReason}</span>
+								</div>
+							</div>
+						</#if>
+					</div>
+					<!-- 右边 -->
+					<div class=" shangleft float_left margin_top_15">
+						<div class="onebox">
+							<div class="leftname">产品类型</div>
+							<div class="nochange">
+								<#if (p.status ="1")>
+									<span style="padding-left: 7px;">正常</span>
+								</#if>
+								<#if (p.status ="4")>
+									<span style="padding-left: 7px;">注销</span>
+								</#if>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;display:block;overflow: hidden;white-space: nowrap;text-overflow:  ellipsis;">${p.productName}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品语言</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.productLanguage}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">中文名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;display:block;overflow: hidden;white-space: nowrap;text-overflow:  ellipsis;">${p.chineseName}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">险类名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;"><@dictDisplay value="${p.riskType}" type="RISK" /></span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">险种名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;"><@dictDisplay value="${p.riskName}" type="${p.riskType}" /></span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">完成注册时间</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.createTime}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品状态</div>
+							<div class="nochange">
+								<#if (p.status ="1")>
+									<span style="padding-left: 7px;">正常</span>
+								</#if>
+								<#if (p.status ="4")>
+									<span style="padding-left: 7px;">注销</span>
+								</#if>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 条款总文 -->
+		<div class="product_detaile_tiankuan" align="center"> 
+			<div class="width_990">
+				<p>条款总文</p>
+				<div class="tiaokuanbox"  style="height: 550px;">
+					<div class="onediv"  style="height: 500px;">
+						<iframe style="text-align: center; width: 100%; height: 100%" src="/upload/${filePath}" > </iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 相关信息 -->
+		
+		<div id="product_detaile_xiangguan" class="product_detaile_xiangguan" align="center"></div>
+		<script type="text/javascript">
+		$(document).ready(function() {  
+			 var data=<@productHistoryJson type=3 productNO="${p.productNO}" showFile=true />;
+			 data['baseUrl']='<@s.url '/' />';
+			 $("#product_detaile_xiangguan").setTemplateElement("template"); 
+			 $("#product_detaile_xiangguan").processTemplate(data); 
+			 
+			 $(".infolist li:even").css("background-color","#ccc");
+				$(".infolist li:odd").css("background-color","#f3f3f3");
+				$(".infolist li img").click(function(){
+					//获取文本的高度，并+5
+					var hei = $(this).parent().siblings("div").height()+5;
+					if($(this).attr("src")=="<@s.url '/resources/img/img_fangxiang_xia.png'/>"&&hei>75){
+						$(this).attr("src", "<@s.url '/resources/img/img_fangxiang_shang.png'/>"); 
+						$(this).parents("li").css("height",hei+"px");
+						$(this).parents("li").find('.fourbeizhu').addClass('line_h22');
+						
+						
+						}else{
+						$(this).attr("src", "<@s.url '/resources/img/img_fangxiang_xia.png'/>"); 
+						$(this).parents("li").css("height","70px");
+						
+						$(this).parents("li").find('.fourbeizhu').removeClass('line_h22');
+					}
+				});
+		});  
+		</script>
+	<!--<#include "productMessageTmpl.html"/><!--相关信息结束-->	
+<div class="fisrt_bottom_xian"></div>
+	<!--<#include "ufoot.html"/><!--尾部结束-->
+
+		<script type="text/javascript">
+		
+		 
+		</script>
+	</body>
+</html>

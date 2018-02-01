@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "userNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品查询</title>
+<!--<@cssJs /> -->
+<link href="<@s.url '/resources/css/uploadify.css'/>" rel="stylesheet" type="text/css" />   
+<script type="text/javascript" src="<@s.url '/resources/js/jquery.uploadify.js'/>"></script>
+	</head>
+	<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@usernav title="核查处理"  second="核查处理"/> -->
+		
+		<!-- 审核部分 -->
+		<div class="product_manager_two height_385" align="center">
+			<!-- height:405px 具体内容 -->
+			<div class="width_990">
+				<!-- 上部分 -->
+				<div class="shang" style="height: 380px;"> 
+					<!-- 左边 -->
+					<div class="shangleft margin_top_15">
+						<div class="onebox">
+							<div class="leftname">产品注册号</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.productNO}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品注册人</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.user.name}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人姓名</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Name}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人电话</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Phone}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人邮箱</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.contactPerson1Email}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">法律责任人</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${m.legalPerson}</span>
+							</div>
+						</div>
+						<div class="twobox height_75">
+							<div class="leftname beizhu">备注</div>
+							<div class="threediv" style="height: 73px;">
+								<p class="pstyle">${p.description}</p>
+							</div>
+						</div>
+						<#if (p.productLanguage !="中文")>
+							<br>
+							<div class="onebox">
+								<div class="leftname">外文条款注册原因</div>
+								<div class="nochange" style="width: 888px;">
+									<span style="padding-left: 7px;">${p.proRegReason}</span>
+								</div>
+							</div>
+						</#if>
+					</div>
+					
+					<!-- 右边 -->
+					<div class=" shangleft float_left margin_top_15">
+						<div class="onebox">
+							<div class="leftname">产品类型</div>
+							<div class="nochange">
+								<#if (p.productType ="1")>
+									<span style="padding-left: 7px;">主险</span>
+								</#if>
+								<#if (p.productType ="2")>
+									<span style="padding-left: 7px;">附加险</span>
+								</#if>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;display:block;overflow: hidden;white-space: nowrap;text-overflow:  ellipsis;">${p.productName}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品语言</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.productLanguage}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">中文名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;display:block;overflow: hidden;white-space: nowrap;text-overflow:  ellipsis;">${p.chineseName}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">险类名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;"><@dictDisplay value="${p.riskType}" type="RISK" /></span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">险种名称</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;"><@dictDisplay value="${p.riskName}" type="${p.riskType}" /></span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">完成注册时间</div>
+							<div class="nochange">
+								<span style="padding-left: 7px;">${p.createTime}</span>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">产品状态</div>
+							<div class="nochange">
+								<#if (p.status ="1")>
+									<span style="padding-left: 7px;">正常</span>
+								</#if>
+								<#if (p.status ="4")>
+									<span style="padding-left: 7px;">注销</span>
+								</#if>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- 条款总文 -->
+		<div class="product_detaile_tiankuan" align="center"> 
+			<div class="width_990">
+				<p>条款总文</p>
+				<div class="tiaokuanbox"  style="height: 550px;">
+					<div class="onediv"  style="height: 500px;">
+						<iframe style="text-align: center; width: 100%; height: 100%" src="/upload/${filePath}" > </iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 核查理由 -->
+		<form action="<@s.url '/user/verifys/update'/>" method="post" id="submitVerifys">
+		<#if v??>
+			<input type="hidden" value="${p.productNO}" name="productNO"/>
+			<input type="hidden" value="" name="fileIdJoin" id="fileIdJoin"/>
+			<#if v.status == 2>
+				<div class="hechaliyou height_280" align="center" id="status_2">
+				<div>
+					<p class="ptitle">核查材料上传</p>
+					<div class="resultbox" style="height: 150px;">
+						<div class="writeliyou">
+							<div class="float_left">
+								问题自述:
+							</div>
+							<div class="float_left">
+								<textarea class="padding_7" name="remark" style="width: 555px;margin-left: 15px;"></textarea>
+							</div>
+						</div>
+						<div class="submitziliao">
+						<div class="title">附件上传:</div>
+						<div class="submitbtn">
+							<input type="file" name="uploadify" id="uploadify" />
+							<div class="succeseinfo" id="fileQueue"></div>
+						</div>
+					</div>
+					</div>
+					<div>
+						<input type="button" class="btn01" onclick="submitVerifys()" value="提&nbsp;&nbsp;&nbsp;&nbsp;交"/>
+					</div>
+				</div>
+			</div>
+			
+			</#if>
+			<#if v.status == 4>
+			
+				<!-- 申请复议 -->
+				<div class="hechaliyou height_280" style="height:320px;" align="center" id="status_4">
+					<div>
+						<p class="ptitle">申请复议</p>
+						<div class="resultbox">
+							<div class="box">
+								<div class="float_left">结论:</div>
+								<div id="fuyi">
+									<div id="hecha_strat" class="float_left margin_left_10 margin_top_3 radio_other_checked"></div>
+									<span  style="margin-left: 5px;" class="float_left" param="1">开启复议</span>
+									<div id="hecha_wuxu" class="float_left  margin_left_20 margin_top_3 radio_other_normal"></div>
+									<span  style="margin-left: 5px;" class="float_left" param="0">无需复议</span>
+									<script type="text/javascript">
+										$(function(){
+											//单选按钮事件
+											$("#hecha_strat").click(function(){
+												
+												if($("#hecha_wuxu").hasClass("radio_other_checked")){
+													$("#hecha_wuxu").removeClass("radio_other_checked").addClass("radio_other_normal");
+													$("#hecha_strat").removeClass("radio_other_normal").addClass("radio_other_checked");
+												}
+											});
+											$("#hecha_wuxu").click(function(){
+												if($("#hecha_strat").hasClass("radio_other_checked")){
+													$("#hecha_strat").removeClass("radio_other_checked").addClass("radio_other_normal");
+													$("#hecha_wuxu").removeClass("radio_other_normal").addClass("radio_other_checked");
+												}
+											});
+										});
+									</script>
+								</div>
+							</div>
+							<div class="writeliyou">
+								<div class="float_left">复议理由:</div>
+								<div class="float_left">
+									<textarea class="padding_7" style="width: 555px;margin-left: 15px;"  id="reviewReason"></textarea>
+								</div>
+							</div>
+							<div class="submitziliao">
+								<div class="title">附件上传:</div>
+								<div class="submitbtn">
+									<input type="file" name="uploadify" id="uploadify" />
+									<div class="succeseinfo" id="fileQueue"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div>
+							<input type="button" class="btn01" onclick="submitVerifys()" value="提&nbsp;&nbsp;&nbsp;&nbsp;交"/>
+						</div>
+					</div>
+				</div>
+			
+			</#if>
+		</#if>
+		
+		<input type="hidden" value="${.now?long}" name="token"/>
+		<input type="hidden" value="${v.id}" name="id">
+		</form>
+	<!-- 相关信息 -->
+		
+		<div id="product_detaile_xiangguan" class="product_detaile_xiangguan" align="center"></div>
+		<script type="text/javascript">
+		$(document).ready(function() {  
+			 var data=<@productHistoryJson type=3 productNO="${p.productNO}" showFile=true />;
+			 data['baseUrl']='<@s.url '/' />';
+			 $("#product_detaile_xiangguan").setTemplateElement("template"); 
+			 $("#product_detaile_xiangguan").processTemplate(data); 
+			 
+			 $(".infolist li:even").css("background-color","#ccc");
+				$(".infolist li:odd").css("background-color","#f3f3f3");
+				$(".infolist li img").click(function(){
+					//获取文本的高度，并+5
+					var hei = $(this).parent().siblings("div").height()+5;
+					if($(this).attr("src")=="<@s.url '/resources/img/img_fangxiang_xia.png'/>"&&hei>75){
+						$(this).attr("src", "<@s.url '/resources/img/img_fangxiang_shang.png'/>"); 
+						$(this).parents("li").css("height",hei+"px");
+						$(this).parents("li").find('.fourbeizhu').addClass('line_h22');
+						
+						
+						}else{
+						$(this).attr("src", "<@s.url '/resources/img/img_fangxiang_xia.png'/>"); 
+						$(this).parents("li").css("height","70px");
+						
+						$(this).parents("li").find('.fourbeizhu').removeClass('line_h22');
+					}
+				});
+		});  
+		</script>
+<!--<#include "productMessageTmpl.html"/><!--相关信息结束-->	
+<div class="fisrt_bottom_xian"></div>
+<!--<#include "ufoot.html"/><!--尾部结束-->
+		
+		<script type="text/javascript">
+		 $(document).ready(function() {  
+		        $("#uploadify").uploadify({  
+		        	 swf           : "<@s.url '/resources/img/uploadify.swf'/>",
+		            uploader       : "<@s.url '/att/insertReal'/>",  
+		            cancelImg      : "<@s.url '/resources/img/uploadify-cancel.png'/>",  
+		            folder         : 'uploads',
+		            queueID        : 'fileQueue',
+		            buttonText     : "选择文件",
+		            fileDesc       : "doc文件或pdf文件",     
+		            fileTypeExts   : '*.pdf;*.doc', 
+		            auto           : true,  
+		            multi          : true,  
+		            fileSizeLimit  : "0.001MB",
+		            overrideEvents : ['onSelectError','onCancel'],
+		            onSelectError  : uploadify_onSelectError,  
+		            uploadLimit    : 2,
+		            removeCompleted:false,
+		            preventCaching : true,
+		            method         : 'POST',
+		            onUploadStart  : function(){
+		            	  var data = {};
+		            	//type  1 :产品注册 ，2:产品复查，3:产品核查,4:产品投诉
+		            	// 1 :产品注册 ，2:产品复查,4:产品投诉 ,3:核查 后台管理员上传附件,5:核查 注册人上传附件
+		            	var type =  "5";
+		            	var productNO = '${p.productNO}';
+		            	data.type= type;
+		            	data.productNO = productNO;
+		            	jQuery('#uploadify').uploadify('settings','formData',data) 
+		            },
+		            onUploadSuccess  : function(file, data, response){
+		            	
+		            	data = eval("(" + data + ")");
+		            	if(!data.success){
+		            		alert(data.msg);
+		            	}else{
+		            		 $("#"+file.id).find("div.cancel>a").attr("href","javascript:void(0);")
+		            		 	.attr("onclick","cancelSuccessFile(this)").addClass("flag").attr("param",data.id)
+		            	}
+		            }
+		        });  
+		        
+		        
+		        var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+		            var msgText = "上传失败\n";  
+		            switch (errorCode) {  
+		                case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:  
+		                    //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";  
+		                    msgText += "每次最多上传 " + this.settings.uploadLimit + "个文件";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:  
+		                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:  
+		                    msgText += "文件大小为0";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:  
+		                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;  
+		                    break;  
+		                default:  
+		                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;  
+		            }  
+		            alert(msgText);  
+		        };  
+		       
+		    });  
+		 
+		 function cancelSuccessFile($this){
+			  // 上传成功附件ID
+	           var id =  $($this).attr("param");
+	           
+	           $.ajax({
+			        type : "post",
+			        url : "<@s.url '/att/delete'/>",
+			        data : {
+			        	id : id,
+			        },
+			        dataType : "json",
+			        success : function(data,status) {
+			        	if(data.success)
+						{
+			        		jQuery('#uploadify').uploadify('cancel')
+						}
+			        }
+			   });  
+	      }
+		 
+		 
+		 function submitVerifys(){
+			 
+			var status = '${v.status}';
+			if(status == 2){
+				$("#submitVerifys").attr("action","<@s.url '/user/verifys/updateComByUser2'/>");
+				
+				// 操作附件
+	           	var fileIdJoin = "";
+	            $("#status_2").find(".flag").each(function(){
+	            	fileIdJoin += $(this).attr("param") + ",";
+	            });
+	            if(fileIdJoin != ""){
+	            	$("#fileIdJoin").val(fileIdJoin.substring(0,fileIdJoin.length-1));
+	            }
+				$("#submitVerifys").submit();
+			}else if(status == 4){
+				$("#submitVerifys").attr("action","<@s.url '/user/verifys/updateComByUser4'/>");
+				// 复议理由
+				var remark = $("#reviewReason").val();
+				var fileIdJoin = "";
+	            $("#status_4").find(".flag").each(function(){
+	            	fileIdJoin += $(this).attr("param") + ",";
+	            });
+	            if(fileIdJoin != ""){
+	            	fileIdJoin = fileIdJoin.substring(0,fileIdJoin.length-1);
+	            }
+	           // 处理结果   1/接受核查   0/无需核查
+				var statusString = "";
+				var verifyStatus = "";
+	           	$("#fuyi").find("div").each(function(){
+	           		if($(this).hasClass("radio_other_checked")){
+						 statusString = $(this).next("span").html();
+						 verifyStatus =  $(this).next("span").attr("param");
+					 }
+				 });
+	           	
+	            
+	            
+				var token = '${.now?long}';
+				var id=  '${v.id}';
+				// 发起复议
+				 $.ajax({
+				        type : "post",
+				        url : "<@s.url '/user/verifys/updateComByUser4'/>",
+				        data : {
+				        	id : id,
+				        	remark:remark,
+				        	token:token,
+				        	fileIdJoin:fileIdJoin,
+				        	productNO:'${p.productNO}',
+				        	statusString:statusString,
+				        	verifyStatus:verifyStatus
+				        },
+				        dataType : "json",
+				        success : function(data,status) {
+				        	if(data.success){
+				        		window.location.href="<@s.url '/user/verifys/list'/>";
+							}else{
+								alert(data.msg);
+							}
+				        }
+				   });  
+			}
+		 }
+		 
+		</script>
+	</body>
+</html>

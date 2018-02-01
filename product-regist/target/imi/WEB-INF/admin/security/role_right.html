@@ -1,0 +1,26 @@
+<#--角色权限-->
+<#include "/comm.ftl"/>
+<#assign base = "admin_security_role"/>
+<#assign module = "${base}_right"/>
+<script type="text/javascript">
+<!--
+$(function(){
+	${module}_post = function(){
+		var post = [];
+		var nodes = $("#${module}_tree").tree("getChecked");
+		if($.isArray(nodes)){
+			$.each(nodes,function(i,n){
+				if(n["attributes"]["type"] == "right"){
+					post.push(n["id"]);
+				}
+			});
+		}
+		return post;
+	};
+});
+//-->
+</script>
+<ul id="${module}_tree" class="easyui-tree" data-options="url:'<@s.url '/admin/security/menu/right/all/tree'/>',checkbox:true,animate:true,lines:true,
+	onLoadError:function(e){ <@error_dialog 'e'/> }, onLoadSuccess:function(node,data){ $.messager.progress({'text':'正在加载数据，请稍后...'});
+    $.getJSON('<@s.url '/admin/security/role/right/${current_role_id}/ids'/>',function(data){ if($.isArray(data)){ $.each(data,function(i,n){ 
+    var node = $('#${module}_tree').tree('find',n); if(node){ $('#${module}_tree').tree('check',node.target); } }); } $.messager.progress('close'); });}"></ul>

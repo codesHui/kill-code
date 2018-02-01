@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><@doctype />  -->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>站内信</title>
+		<!--<@cssJs /> -->
+	</head>
+	<body>
+		<!-- top -->
+		<div class="aftertop" align="center">
+			<div class="width_990">
+				<div class="float_left">
+					<span class="color_lan canclespan" style="">${Session["nickName"]?default(Session["account"])}</span><span class="canclespan">,欢迎回来！</span> 
+					<a href="javascript:history.go(-1)" class="canclea" >返回</a>
+				</div>
+				<div class="float_rifht">
+					<img src="<@s.url '/resources/img/img_email.png'/>" class="message" />
+					站内通知[<span class="color_orgen">${readNo}</span>/<span>${readTotal}</span>]
+				</div>
+			</div>
+		</div>
+		<!-- endtop -->
+		<!-- header -->
+		<div class="product_manager_top" align="center">
+			<div class="topbox">
+			<!-- 	<img src="<@s.url '/resources/img/img_logo.png'/>"/> -->
+				<div class="logo">航运保险产品注册管理平台  </div>
+			</div>
+		</div>
+		<div class="hangxian"></div>
+		<div class="zhanneitongzhi" align="center">
+			<div class="writeletter">
+				<div class="leftwrap">
+					<div id="shouxin" class="shouxin xuanzhong" style="height:90px; line-height: 90px;">收信</div>
+					<div id="xiexin" class="xiexin" style="height:90px; line-height: 90px;">写信</div>
+					<div id="faxin" class="xiexin" style="height:90px; line-height: 90px;">发件箱</div>
+				</div>
+				<!-- 写信 -->
+				<div id="xiexinbox" class="xiexinbox" align="center" style="display: none;">
+					<div class="top">
+						<div class="topleft">收件人:</div>
+						<div class="topright">
+							<input type="text" id="writeMan"/>
+						</div>
+					</div>
+					<div class="contentbox">
+						<div class="topleft">内&nbsp;&nbsp;&nbsp;&nbsp;容:</div>
+						<div class="topright">
+							<textarea id="writeContent"></textarea>
+						</div>
+					</div>
+					<button class="btn04" id="WriteSendMessage">发送</button>
+				</div>
+				<!-- 收信 -->
+				<div id="shouxinbox" class="shouxinbox">
+					<div class="left">
+						<ul class="listviewnews">
+							<!-- <#if list??>
+								<#list list as mess>
+									<li class="mess_flag">
+										<div class="leftlione">
+											<img src="<@s.url '/resources/img/img_email_${mess.state}.png'/>"/>
+										</div>
+										<div class="leftlitwo">${mess.title}</div> <input type="hidden" value="${mess.id}" name="mess_id"/>
+										<div class="leftlithree">${mess.createTime}</div>
+									</li>
+							   </#list>
+							</#if> -->
+						</ul>
+					</div>
+					<div class="rightbox">
+						<div class="content"></div>
+						
+						<div class="huifu">
+							<div class="title">回复消息</div>
+							<div class="contentshuru">
+								<textarea id="sendContent_shouxin"></textarea>
+							</div>
+						</div>
+						<button class="btn01" id="sendMessage_shouxin">发送</button>
+					</div>
+				</div>
+				
+				<!-- 发信 -->
+				<div id="faxinbox" class="shouxinbox" style="display: none;">
+					<div class="left">
+						<ul class="listviewnews"></ul>
+					</div>
+					<div class="rightbox">
+						<div class="content"></div>
+						
+						<div class="huifu">
+							<div class="title">回复消息</div>
+							<div class="contentshuru">
+								<textarea id="sendContent_faxin"></textarea>
+							</div>
+						</div>
+						<button class="btn01" id="sendMessage_faxin">发送</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- footer -->
+		<div class="fisrt_bottom_xian"></div>
+		<!--<#include "foot.html"/><!--尾部结束-->
+		<div style="width:100%;height:auto; display: none;  clear: both;" id="chat_left">
+			<div style="font-size: 12px;" class="user_title">初级管理员 [2015-05-12 09:12:23]</div>
+			<div class="user_content" style="font-size:13px;font-family:微软雅黑; color:#00BFFF;float: left;"></div>
+		</div>
+		<div style="width:100%;height:auto; text-align: right; display: none; clear: both;" id="chat_right">
+			<div style="font-size: 12px;" class="own_title">高级管理员 [2015-05-12 09:12:23]</div>
+			<div class="own_content" style="font-size:13px; font-family:微软雅黑;color:#0000FF; width: 70%;color:#4169E1; float: right;text-align: left;">
+			</div>
+		</div>
+		<ul class="listviewnews message_list_templ" style="display: none;">
+			<li class="mess_flag" onclick="getChatMessage(this)" style="cursor:pointer;">
+				<input type="hidden" name="type"/> <!-- 标记发送记录(send) 还是 收信记录(receive) -->
+				<div class="leftlione">
+					<img src=""/>
+				</div>
+				<div class="leftlitwo"></div> 
+				<input type="hidden" value="" name="mess_id"/>
+				<div class="leftlithree"></div>
+				
+			</li>
+		</ul>
+		
+		
+		<script type="text/javascript">
+			
+			$(function(){
+				
+				findReceiveMessage();
+				
+				$("#shouxin").click(function(){
+					$("#shouxinbox").data("mess_id","");
+					$("#xiexinbox").css("display","none");
+					$("#faxinbox").css("display","none");
+					$("#shouxinbox").css("display","block");
+					$("#shouxin").addClass("xuanzhong");
+					$("#xiexin").removeClass("xuanzhong");
+					$("#faxin").removeClass("xuanzhong");
+					findReceiveMessage();
+				});
+				$("#xiexin").click(function(){
+					$("#shouxinbox").data("mess_id","");
+					$("#shouxinbox").css("display","none");
+					$("#faxinbox").css("display","none");
+					$("#xiexinbox").css("display","block");
+					$("#xiexin").addClass("xuanzhong");
+					$("#shouxin").removeClass("xuanzhong");
+					$("#faxin").removeClass("xuanzhong");
+				});
+				
+				$("#faxin").click(function(){
+					$("#shouxinbox").data("mess_id","");
+					$("#shouxinbox").css("display","none");
+					$("#xiexinbox").css("display","none");
+					$("#faxinbox").css("display","block");
+					$("#faxin").addClass("xuanzhong");
+					$("#shouxin").removeClass("xuanzhong");
+					$("#xiexin").removeClass("xuanzhong");
+					findSendMessage();
+				});
+				$(".listviewnews li").live("click",function(){
+					$(this).addClass("xunzhongdeli");
+					$(this).siblings().removeClass("xunzhongdeli");
+				});
+				
+			});
+			
+			function findSendMessage(){
+				$.ajax({
+			        type : "post",
+			        url : "<@s.url '/message/findSendMessContent'/>",
+			        data : {},
+			        dataType : "json",
+			        success : function(data,status) {
+			        	$("#faxinbox").find("ul").html("");
+			        	var templ = $(".message_list_templ").clone();
+			        	if(data == null){return;}
+			        	for(var i=0;i<data.length;i++){
+			        		templ.find("input[name=type]").val("send");
+			        		templ.find(".leftlitwo").html(data[i].title);
+			        		templ.find(".leftlithree").html(data[i].createTime+""+'&nbsp;&nbsp;<img onclick="deleteMessage(this)" style="width:20px; height:20px;cursor:pointer;" src="<@s.url '/resources/img/delete.png'/>"/>');
+			        		templ.find(".leftlione").children("img").attr("src","<@s.url '/resources/img/img_email_1.png'/>")
+			        		templ.find("input[name=mess_id]").val(data[i].id);
+			        		$("#faxinbox").find("ul").append(templ.html());
+			        	}
+			        }
+			   });  
+			}
+			
+			
+			function findReceiveMessage(){
+				$.ajax({
+			        type : "post",
+			        url : "<@s.url '/message/findReceiveMessContent'/>",
+			        data : {},
+			        dataType : "json",
+			        success : function(data,status) {
+			        	$("#shouxinbox").find("ul").html("");
+			        	var templ = $(".message_list_templ").clone();
+			        	if(data == null)return;
+			        	for(var i=0;i<data.length;i++){
+			        		templ.find("input[name=type]").val("receive");
+			        		templ.find(".leftlitwo").html(data[i].title);
+			        		templ.find(".leftlithree").html(data[i].createTime+""+'&nbsp;&nbsp;<img onclick="deleteMessage(this)" style="width:20px; height:20px;cursor:pointer;" src="<@s.url '/resources/img/delete.png'/>"/>');
+			        		templ.find(".leftlione").children("img").attr("src","<@s.url '/resources/img/img_email_"+data[i].state+".png'/>")
+			        		templ.find("input[name=mess_id]").val(data[i].id);
+			        		$("#shouxinbox").find("ul").append(templ.html());
+			        	}
+			        }
+			   });  
+			}
+			
+			function getChatMessage($this){
+				$($this).find(".leftlione").children("img").attr("src","<@s.url '/resources/img/img_email_1.png'/>")
+				var mess_id = $($this).find("input[name='mess_id']").val();
+				var type = $($this).find("input[name='type']").val();
+				$("#shouxinbox").data("mess_id",mess_id);
+				  $.ajax({
+				        type : "post",
+				        url : "<@s.url '/message/findMessContent'/>",
+				        data : {id : mess_id,type:type},
+				        dataType : "json",
+				        success : function(data,status) {
+				        	var content = $($this).parents("div.left").next("div").find(".content");
+				        	content.html("");
+				        	var dataInfo = "";
+				        	if(data == null){return;}
+				        	for(var i=0;i<data.param.length;i++){
+				        		var obj = data.param;
+				        		if(obj[i].from == "false"){
+				        			dataInfo = $("#chat_left").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".user_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".user_content").html(obj[i].text);
+				        		}else{
+				        			dataInfo = $("#chat_right").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".own_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".own_content").html(obj[i].text);
+				        		}
+				        		content.append(dataInfo);
+				        	}
+				        	content.scrollTop(100000);
+				        }
+				   });  
+			}
+			
+			
+			$(function(){
+				
+				$("#sendMessage_shouxin").click(function(){
+					var obj = $(this);
+					var mess_id = $("#shouxinbox").data("mess_id");
+					if(mess_id == "" || mess_id == undefined){
+						alert("请选择发送人...");
+						return false;
+					}
+					var sendContent = $("#sendContent_shouxin").val();
+					if(sendContent == ""){
+						alert("发送内容不能为空...");
+						return false;
+					}
+					if(sendContent.length > 100){
+						alert("发送内容不能超过100个字...");
+						return false;
+					}
+					$.ajax({
+				        type : "post",
+				        url : "<@s.url '/message/sendMessage_shouxin'/>",
+				        data : {id : mess_id,sendContent:sendContent},
+				        cache:false,
+				        dataType : "json",
+				        success : function(data){
+				        	var content = $("#sendContent_shouxin").parents("div.huifu").siblings("div.content");
+				        	content.html("");
+				        	var dataInfo = "";
+				        	if(data == null){return;}
+				        	for(var i=0;i<data.param.length;i++){
+				        		var obj = data.param;
+				        		if(obj[i].from == "false"){
+				        			dataInfo = $("#chat_left").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".user_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".user_content").html(obj[i].text);
+				        		}else{
+				        			dataInfo = $("#chat_right").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".own_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".own_content").html(obj[i].text);
+				        		}
+				        		content.append(dataInfo);
+				        	}
+				        	$("#sendContent_shouxin").val("");
+				        	content.scrollTop(100000);
+				        }
+				   });
+				});
+				
+				
+				
+				$("#sendMessage_faxin").click(function(){
+					var obj = $(this);
+					var mess_id = $("#shouxinbox").data("mess_id");
+					if(mess_id == "" || mess_id == undefined){
+						alert("请选择发送人...");
+						return false;
+					}
+					var sendContent = $("#sendContent_faxin").val();
+					if(sendContent == ""){
+						alert("发送内容不能为空...");
+						return false;
+					}
+					$.ajax({
+				        type : "post",
+				        url : "<@s.url '/message/sendMessage_faxin'/>",
+				        data : {id : mess_id,sendContent:sendContent},
+				        cache:false,
+				        dataType : "json",
+				        success : function(data){debugger;
+					        var content = $("#sendContent_faxin").parents("div.huifu").siblings("div.content");
+				        	content.html("");
+				        	var dataInfo = "";
+				        	if(data == null){return;}
+				        	for(var i=0;i<data.param.length;i++){
+				        		var obj = data.param;
+				        		if(obj[i].from == "false"){
+				        			dataInfo = $("#chat_left").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".user_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".user_content").html(obj[i].text);
+				        		}else{
+				        			dataInfo = $("#chat_right").clone();
+				        			dataInfo.css("display","block");
+				        			dataInfo.find(".own_title").html(obj[i].username+" ["+obj[i].date+"]");
+				        			dataInfo.find(".own_content").html(obj[i].text);
+				        		}
+				        		content.append(dataInfo);
+				        	}
+				        	$("#sendContent_faxin").val("");
+				        	content.scrollTop(100000);
+				        }
+				   });
+				});
+				
+				
+				
+				
+				
+				$("#WriteSendMessage").click(function(){
+					var writeMan = $("#writeMan").val();
+					var writeContent = $("#writeContent").val();
+					if(writeMan == ""){
+						alert("收件人不能为空...");
+						return false;
+					}
+					if(writeContent == ""){
+						alert("发送内容不能为空...");
+						return false;
+					}
+					
+					$.ajax({
+				        type : "post",
+				        url : "<@s.url '/message/writeInfo'/>",
+				        data : {writeMan : writeMan,writeContent:writeContent},
+				        dataType : "json",
+				        success : function(data){
+				        	if(data.success){
+				        		alert("发送成功..");
+				        		$("#writeContent").val("");
+				        	}else{
+				        		alert(data.msg);
+				        	}
+				        }
+				   });
+					
+					
+				});
+			})
+			
+			function deleteMessage($this){
+				if(!confirm("确定要删除吗？")){
+					return;
+				}
+				var id = $($this).parents("div").siblings("input[name='mess_id']").val();
+				<!-- 标记发送记录(send) 还是 收信记录(receive) -->
+				var type = $($this).parents("div").siblings("input[name='type']").val();
+				$.ajax({
+			        type : "post",
+			        url : "<@s.url '/message/deleteMessage'/>",
+			        data : {id : id,type:type},
+			        dataType : "json",
+			        success : function(data){
+			        	if(data.success){
+			        		$(".rightbox .content").html("");
+			        	}else{
+			        		
+			        	}
+			        }
+			   });
+				$($this).parents("li").remove();
+			}
+			
+			
+		</script>
+	</body>
+</html>

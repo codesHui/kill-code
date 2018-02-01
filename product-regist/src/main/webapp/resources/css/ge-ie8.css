@@ -1,0 +1,23 @@
+.aftertop .canclebtn{width: 60px;height: 22px;line-height: 22px; background-color: #bbb;color: #fff;border: 0;font-size: 12px;margin-top: -5px;}
+.newsgonggaoulstyle li .rightbtn button{cursor: pointer; width:90px;height: 30px;line-height: 30px; border: 0;border-radius: 5px;background-color: #3C9CD3;color: #fff;margin-top: 5px;}
+.product_manager_two .pstyle{word-break: break-all;word-wrap: break-word;}
+.passwordchange01 .yanzheng .twodiv{height: 35px; line-height: 35px;}
+.product_detaile_shangbao .submitdiv{width: 619px;height: 75px;line-height: 45px;margin-left: 17px;margin-top: 10px;}
+.product_detaile_shangbao .submitdiv .rightdiv button{cursor: pointer;outline: none; width: 80px;height: 45px;background-image: url(../img/img_submit_more.png);background-repeat: no-repeat;background-size: 60px 35px; border: 0;border-radius: 5px;margin-top: 10px;}
+.btnstyle{width: 100px;height: 30px;background: #3C9CD3;color: #fff;outline: none;cursor: pointer;border: 0;border-radius: 5px;}
+.product_manager_two .pstyle{width: 234px;height: 3px;line-height: 24px;color: #fff;margin-left: 78px;padding-left: 7px;word-break: break-all;word-wrap:break-word;text-align: left;margin-top: 0;}
+.width_top{width: 400px;}
+.margin_left_132{margin-left: 150px;}
+.product_manager_two .shang .shangleft .threediv{width: 320px;height: 58px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;border-right: 1px solid #fff;color: #fff;}
+.product_manager_two .shang .shangleft .threediv input{width: 234px;height: 54px;padding-left: 7px;color: #3F3F3F; border: 0;background: #3C9CD3;color: #fff;position: relative; top: -20px;word-break: break-all;word-wrap: break-word;}
+
+.radio_normal{background-image: url(../img/img_radio_narmol.png);width: 20px;height: 20px;background-size: 20px;cursor: pointer;}
+.radio_checked{background-image: url(../img/img_radio_checked.png);width: 20px;height: 20px;background-size: 20px;cursor: pointer;}
+.radio_other_normal{background-image: url(../img/img_radio_narmal02.png);width: 20px;height: 20px;background-size: 20px;cursor: pointer;}
+.radio_other_checked{background-image:url(../img/img_radio_checked02.png);width: 20px;height: 20px;background-size: 20px;cursor: pointer;}
+
+#playBox .oUlplay li img{width: 100%;height: 260px;border: 0;}
+#playBox .smalltitle ul li{ width:10px; height:10px; margin:0 5px;border-radius: 10px;background:#ffffff; float:left; overflow:hidden;*display:inline;*zoom:1;}
+
+
+.product_content .content_all li button{cursor: pointer; width: 80px;height: 28px;border:0;border-radius: 5px;outline: none;background-color: #3C9CD3;color:#fff;}

@@ -1,0 +1,39 @@
+模板类容-->
+<textarea id="template" style="display: none"> 
+
+	<p class="ptitle">相关信息</p>
+	<ul class="infolist">
+{#foreach $T.data as record}  
+	<li>
+			<div class="width_990">
+				<div class="onediv">{$T.record.type} </div>
+				<div class="twodiv">{$T.record.operPerson}</div>
+				<div class="threediv">{$T.record.createTime}</div>
+				<div class="fourdiv">
+					<div class="fourbeizhu">
+					{$T.record.content}
+					</div>
+					
+ 					<div class="filediv"><a
+ 					{#if $T.record.filePath} href="/upload/{$T.record.filePath}">附件
+ 					{#else} >  {#/if}</a>
+ 					
+ 					</div> 
+					
+					<div class="imgdiv">
+						<img src="{$T.baseUrl}resources/img/img_fangxiang_xia.png"/>
+					</div>
+
+				</div>
+				<div class="twodiv">{$T.record.actionName}</div>
+		
+				
+			</div>
+		</li>
+
+{#/for}  
+	
+	</ul>
+	
+	<div style="clear:both;"></div> 
+</textarea>

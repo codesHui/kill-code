@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>报表三</title>
+<style type="text/css">
+
+td{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	border:1.0pt solid #ddd; 
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:
+	font-family:仿宋_GB2312, serif;
+	mso-font-charset:134;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+
+	white-space:normal;}
+	
+.toptitle td{
+
+}	
+
+</style>
+<!--<@cssJs /> -->
+</head>
+<script type="text/javascript">
+function select(){
+	$("#submit_report_test4").submit();
+}
+</script>
+<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="报表管理"  second="报表三"/> -->
+
+<script type="text/javascript" src="<@s.url '/resources/datePicker/WdatePicker.js'/>" ></script>
+<form action="<@s.url'/admin/report/test4'/>" method="get" id="submit_report_test4">
+	<div class="product_condition" align="center"
+		style="margin-top: 40px; height: 150px;">
+
+		<div class="content" style="height: 100px;">
+			<div class="float_left leftbox" style="margin-left: 25px;">
+			
+				<div class="hangstyle">
+							<div class="float_left titlename">险类：</div>
+							<div class="input_div" style="width: 300px;">
+					
+							   <select id="productType" name="productType">
+    					  				<option value=""  >全部</option>
+    					  				
+    					  				<option value="09"  <#if productType=='09'>selected</#if>>主货运保险</option>
+    					  				<option value="08"  <#if productType=='08'>selected</#if>>船舶保险</option>
+  					 					<option value="05"  <#if productType=='05'>selected</#if>>航运责任</option>
+  					 					<option value="81"  <#if productType=='81'>selected</#if>>离岸能源</option>
+  					 					<option value="82"  <#if productType=='82'>selected</#if>>航空器及相关责任保险</option>
+  					 					<option value="89"  <#if productType=='89'>selected</#if>>其他航运</option>
+  					 			</select>
+							</div>
+				</div>
+			
+			</div>
+			
+			
+			
+
+
+		</div>
+		<div class="bottomdiv">
+			<button onclick="select();">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+		</div>
+	</div>
+	
+	</form>
+	
+ <div class="product_content" align="center" style="margin-top: 5px">
+
+	
+  <table style='border-collapse:collapse;table-layout:fixed;width:956pt'> 
+  	<tr class="toptitle" style="color: white;">
+  		<td rowspan=4 height=37  width=72 style='height:27.75pt;width:54pt'>种类</td>
+  		<td rowspan=4  style='width:135pt'>险类</td>
+  		<td rowspan=4  style='width:135pt;'>险种</td>
+  		<td colspan="5" width="300px">2015</td>
+  		<td colspan="5"  width="300px">2016</td>
+  		<td colspan="5"  width="300px">2017</td>
+  	<tr>
+  	<tr class="toptitle" style="color: white;">
+  		<td>一季度</td>
+  		<td>二季度</td>
+  		<td>三季度</td>
+  		<td>四季度</td>
+  		<td>小计</td>
+  		<td>一季度</td>
+  		<td>二季度</td>
+  		<td>三季度</td>
+  		<td>四季度</td>
+  		<td>小计</td>
+  		<td>一季度</td>
+  		<td>二季度</td>
+  		<td>三季度</td>
+  		<td>四季度</td>
+  		<td>小计</td>
+  	<tr>
+   ${map_map}
+  </table> 
+  
+  
+  <div class="fisrt_bottom_xian"></div>
+<#include "ufoot.html"/>
+</body>
+
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>报表六</title>
+<style type="text/css">
+
+td{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	border:1.0pt solid #ddd; 
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:
+	font-family:仿宋_GB2312, serif;
+	mso-font-charset:134;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+
+	white-space:normal;}
+	
+.toptitle td{
+
+}	
+
+</style>
+<!--<@cssJs /> -->
+</head>
+
+<script type="text/javascript">
+function select(){
+	$("#submit_report_test5").submit();
+}
+</script>
+
+<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="报表管理"  second="报表六"/> -->
+
+ <div class="product_content" align="center" style="padding-top: 50px;">
+  <table style='border-collapse:collapse;table-layout:fixed;width:800pt'> 
+  	 
+  	 <tr class="toptitle" style="color: white;">
+  	 	<td width="200px">产品注册人类型</td>
+  	 	<td>2015</td>
+  	 	<td>2016</td>
+  	 	<td>2017</td>
+  	 </tr>
+  	  ${list_total}
+  </table> 
+  <div class="fisrt_bottom_xian"></div>
+<#include "ufoot.html"/>
+</body>
+
+</html>
+

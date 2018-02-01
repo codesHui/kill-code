@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品查询</title>
+<!--<@cssJs /> -->
+<style type="text/css">
+*+html .leftbox .titlename{margin-right:-3px}/* IE7 */ 
+*+html  .input_div{ /* background-color: olive; */padding: 0px;text-align: left;}/* IE7 */ 
+.yijinav  a{
+text-decoration: none;color: #3F3F3F;
+}
+.nav_off{
+display: none;
+}
+
+.acitve {
+  background-color: rgb(230, 227, 227);;
+  color: #3C9CD3;
+}
+
+
+</style>
+	</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="用户管理"  second="用户列表"/> -->
+		
+			<!-- 基本信息部分 -->
+		<form action="<@s.url'/admin/muser_saveOrUpdate'/>" method="post" id="modify_product_info">
+		<div class="product_manager_two" align="center" style="height: 530px;">
+			
+			<!-- height:405px 具体内容 -->
+			<div style="width: 990px;">
+				<!-- 上部分 -->
+				<div class="shang" style="height: 450px;"> 
+					<!-- 左边 -->
+					<input type="hidden"  value="${user.id}" name="id"/>
+					<input type="hidden"  value="${user.type}" name="type"/>
+					<div class="shangright" style="margin-top: 15px;" style="height: 100%;">
+						<div class="hangstyle">
+							<div class="float_left titlename">用户账号：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${user.account}" name="account" id="account"/>
+							</div>
+						</div>
+						<div class="hangstyle" style="margin-bottom: 41px;">
+							<div class="float_left titlename">用户角色：</div>
+							<div style="width: 300px;">
+								<!-- <select>
+									<option>注册人</option>
+									<option>初级管理员</option>
+									<option>中级管理员</option>
+									<option>高级管理员</option>
+									<option>超级用户</option>
+								</select> -->
+								<@dictSelect value="${role.code}" code="${roleCode}" type="ROLES"  name="roleName" id="roleName" showSelect=true />
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">产品注册人名称：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.companyName}" name="companyName" id="companyName"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">公司简称：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.companyShortName}" name="companyShortName" id="companyShortName"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">组织机构代码：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.organizationCode}" name="organizationCode" id="organizationCode"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">官方网站地址：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.companyWebsit}" name="companyWebsit" id="companyWebsit"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">专用邮箱：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.specialMail}" name="specialMail" id="specialMail"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">注册人代码：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.registeredCode}" name="registeredCode" readonly="readonly" id="registeredCode"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">法律责任人/主要负责人：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.legalPerson}" name="legalPerson" id="legalPerson"/>
+							</div>
+						</div>
+						
+					</div>
+					<!-- 右边 -->
+					<div class="shangright" style="margin-top: 15px; height: 100%;" >
+						<div class="hangstyle">
+							<div class="float_left titlename">用户状态：</div>
+							<div style="width: 300px;">
+								<@dictSelect value="${user.status}" type="USTATUS"  name="status" id="status" showSelect=true />
+							</div>
+						</div>
+						<div class="hangstyle" style="margin-bottom: 41px;">
+							<div class="float_left titlename">用户密码：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${user.password}" name="password" id="password"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人1姓名：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson1Name}" name="contactPerson1Name" id="contactPerson1Name"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人1电话：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson1Phone}" name="contactPerson1Phone" id="contactPerson1Phone"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人1邮箱：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson1Email}" name="contactPerson1Email" id="contactPerson1Email"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人2姓名：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson2Name}" name="contactPerson2Name" id="contactPerson1Name"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人2电话：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson2Phone}" name="contactPerson2Phone" id="contactPerson1Phone"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">联系人2邮箱：</div>
+							<div style="width: 300px;">
+								<input type="text"  value="${muser.contactPerson2Email}" name="contactPerson2Email" id="contactPerson1Email"/>
+							</div>
+						</div>
+						
+						<!-- <div class="hangstyle">
+							<div class="float_left titlename">修改用户：</div>
+							<div style="width: 300px; margin-top: 10px;">
+								<select>
+									<option>无操作</option>
+									<option>无操作1</option>
+									<option>无操作2</option>
+									<option>无操作3</option>
+								</select>
+							</div>
+						</div> -->
+						
+					</div>
+				</div>
+				<!-- 下边 -->
+				<div class="xiafang">
+					<div style="height: 70px; line-height: 70px;">
+						<button type="button" onclick="modify();" style="align:center;font-family:'微软雅黑';width: 120px; height: 30px; background: #FF6600; color: #FFFFFF;border-radius: 5px; border: 0; margin-top: 15px;">确认修改</button>
+					</div>
+					<!--<button >确认</button>-->
+				</div>
+			</div>
+		</div>
+		</form>
+		
+		
+		<div class="fisrt_bottom_xian"></div>
+		<!--<#include "ufoot.html"/><!--尾部结束-->
+	<script type="text/javascript">
+    //提交修改
+	function modify(){
+		var account = $("#account").val();
+		if(account == ""){
+			alert("用户账号没有填写！");
+			return false;
+		}
+		var roleName = $("#roleName").val();
+		if(roleName == ""){
+			alert("用户角色没有选择！");
+			return false;
+		}
+		var companyName = $("#companyName").val();
+		if(companyName == ""){
+			alert("产品注册人没有填写！");
+			return false;
+		}
+		var companyShortName = $("#companyShortName").val();
+		if(companyShortName == ""){
+			alert("公司简称没有填写！");
+			return false;
+		}
+		var organizationCode = $("#organizationCode").val();
+		if(organizationCode == ""){
+			alert("组织机构代码没有填写！");
+			return false;
+		}
+		var companyWebsit = $("#companyWebsit").val();
+		if(companyWebsit == ""){
+			alert("官方网站地址没有填写！");
+			return false;
+		}
+		var specialMail = $("#specialMail").val();
+		if(specialMail == ""){
+			alert("专用邮箱没有填写！");
+			return false;
+		}
+		var registeredCode = $("#registeredCode").val();
+		if(registeredCode == ""){
+			alert("注册人代码没有填写！");
+			return false;
+		}
+		var legalPerson = $("#legalPerson").val();
+		if(legalPerson == ""){
+			alert("法律责任人没有填写！");
+			return false;
+		}
+		var password = $("#password").val();
+		if(password == ""){
+			alert("用户密码没有填写！");
+			return false;
+		}
+		$("#modify_product_info").submit();
+	}
+</script>	
+
+	</body>
+</html>

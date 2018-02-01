@@ -1,0 +1,307 @@
+http://www.liuzp.com/css/15.html
+ie678,FF,chrome的css兼容性
+
+admin 发布于：2013-8-14 0:28　分类：Css 　有 10484 人浏览，获得评论 9 条　标签: css	前端	ie兼容性　
+
+
+　　css的兼容性一般都是前端初学者面临的一个头疼的问题，难免写出来的css在各个浏览器下的效果均有不同，于是乎各种css hack写法出来了，其实在一个规范的项目开发中，css hack都是提倡能不用则尽量不用，因为产生兼容性问题的时候很多情况是写法不规范引起的，但也确实存在一些浏览器本身的bug，特别是万恶的IE。 
+
+　　小知识：什么是CSS hack？ 
+
+　　由于不同的浏览器，比如IE6、IE7、IE8、Firefox等，对CSS的解析认识不一样，因此会导致生成的页面效果不一样，得不到我们所需要的页面效果。这个时候我们就需要针对不同的浏览器去写不同的CSS，让它能够同时兼容不同的浏览器，能在不同的浏览器中也能得到我们想要的页面效果。这个针对不同的浏览器写不同的CSS code的过程，就叫CSS hack，也叫写CSS hack。 
+
+　　各浏览器CSS hack兼容表： 
+
+
+
+   IE6  IE7  IE8  Firefox  Chrome  Safari  
+!important     Y     Y        
+_  Y                 
+*  Y  Y              
+*+     Y              
+\9  Y  Y  Y           
+\0        Y           
+nth-of-type(1)              Y  Y  
+
+
+代码示例： 
+
+
+
+
+
+
+
+
+
+
+
+01 #test{ 
+
+
+02     color:red; /* 所有浏览器都支持 */ 
+
+
+03     color:red !important;/* Firefox、IE7支持 */ 
+
+
+04     _color:red; /* IE6支持 */ 
+
+
+05     *color:red; /* IE6、IE7支持 */ 
+
+
+06     +color:red; /* IE7支持 */ 
+
+
+07     color:red\9; /* IE6、IE7、IE8支持 */ 
+
+
+08     color:red\0; /* IE8支持 */ 
+
+
+09 } 
+
+
+10 body:nth-of-type(1) p{color:red;} /* Chrome、Safari支持 */ 
+
+
+
+
+其他说明： 
+
+1、如果你的页面对IE7兼容没有问题，又不想大量修改现有代码，同时又能在IE8中正常使用，微软声称，开发商仅需要在目前兼容IE7的网站上添加一行代码即可解决问题，此代码如下：
+<meta http-equiv=”x-ua-compatible” content=”ie=7″ />
+ 2、body:nth-of-type(1) 如果这样写，表示全局查找body，将会对应第一个<body>。
+3、还有其他写法，比如：
+*html #test{}或者 *+html #test{}
+ 4、*+html 对IE7的hack 必须保证HTML顶部有如下声明：http://www.w3.org/TR/html4/loose.dtd
+ 5、顺序：Firefox、IE8、IE7、IE6依次排列。 
+
+
+
+
+一、CSS HACK 
+
+以下两种方法几乎能解决现今所有HACK
+1. !important
+随着IE7对!important的支持， !important 方法现在只针对IE6的HACK。（注意写法，记得该声明位置需要提前） 
+
+
+
+
+
+
+
+
+
+
+
+1 #test{ 
+
+
+2     width: 100px!important; /* IE7+FF */ 
+
+
+3     width: 80px; /* IE6 */ 
+
+
+4 } 
+
+
+
+
+2. IE6/IE77对FireFox
+ *+html 与 *html 是IE特有的标签，firefox 不支持，而*+html 又为 IE7特有标签。 
+
+
+
+
+
+
+
+
+
+
+
+1 #wrapper {width:120px; } /* FireFox */ 
+
+
+2 *html #wrapper {width:80px;} /* ie6 fixed */ 
+
+
+3 *+html #wrapper {width:60px;} /* ie7 fixed, 注意顺序 * 
+
+
+
+
+注意：
+*+html 对IE7的HACK 必须保证HTML顶部有如下声明： 
+
+
+
+
+
+
+
+
+1 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"　"http://www.w3.org/TR/html4/loose.dtd"> 
+
+
+
+
+
+
+
+二、万能 float 闭合 
+
+将以下代码加入CSS 中，给需要闭合的div加上 class="clearfix" 即可，屡试不爽。 
+
+
+
+
+
+
+
+
+
+
+
+01 <style> 
+
+
+02 /* Clear Fix */ 
+
+
+03 .clearfix:after{ 
+
+
+04     content:"."; 
+
+
+05     display:block; 
+
+
+06     height:0; 
+
+
+07     clear:both; 
+
+
+08     visibility:hidden; 
+
+
+09 } 
+
+
+10 .clearfix{ 
+
+
+11     display:inline-block; 
+
+
+12 } 
+
+
+13 /* Hide from IE Mac */ 
+
+
+14 .clearfix {display:block;} 
+
+
+15 /* End hide from IE Mac */ 
+
+
+16 /* end of clearfix */ 
+
+
+17 </style> 
+
+
+
+
+三、其他兼容技巧（以下摘自互联网，不代表个人完全认同其解决方法） 
+
+1, FF下给 div 设置 padding 后会导致 width 和 height 增加, 但IE不会.(可用!important解决)
+2, 居中问题.
+1).垂直居中.将 line-height 设置为 当前 div 相同的高度, 再通过 vertical-align: middle.( 注意内容不要换行.)
+2).水平居中. margin: 0 auto;(当然不是万能)
+3, 若需给 a 标签内内容加上 样式, 需要设置 display: block;(常见于导航标签)
+4, FF 和 IE 对 BOX 理解的差异导致相差 2px 的还有设为 float的div在ie下 margin加倍等问题.
+5, ul 标签在 FF 下面默认有 list-style 和 padding . 最好事先声明, 以避免不必要的麻烦. (常见于导航标签和内容列表)
+6, 作为外部 wrapper 的 div 不要定死高度, 最好还加上 overflow: hidden.以达到高度自适应.
+7, 关于手形光标. cursor: pointer. 而hand 只适用于 IE.
+
+ 1 针对firefox ie6 ie7的css样式 
+现在大部分都是用!important来hack，对于ie6和firefox测试可以正常显示，
+ 但是ie7对!important可以正确解释，会导致页面没按要求显示！找到一个针
+ 对IE7不错的hack方式就是使用“*+html”，现在用IE7浏览一下，应该没有问题了。 
+现在写一个CSS可以这样：
+#1 { color: #333; } /* Moz */ 
+ * html #1 { color: #666; } /* IE6 */ 
+ *+html #1 { color: #999; } /* IE7 */ 
+那么在firefox下字体颜色显示为#333，IE6下字体颜色显示为#666，IE7下字体颜色显示为#999。
+
+2 css布局中的居中问题 
+主要的样式定义如下：
+body {TEXT-ALIGN: center;}
+ #center { MARGIN-RIGHT: auto; MARGIN-LEFT: auto; } 
+说明：
+ 首先在父级元素定义TEXT-ALIGN: center;这个的意思就是在父级元素内的内容居中；对于IE这样设定就已经可以了。
+ 但在mozilla中不能居中。解决办法就是在子元素定义时候设定时再加上“MARGIN-RIGHT: auto;MARGIN-LEFT: auto; ”
+需要说明的是，如果你想用这个方法使整个页面要居中，建议不要套在一个DIV里，你可以依次拆出多个div，
+ 只要在每个拆出的div里定义MARGIN-RIGHT: auto;MARGIN-LEFT: auto; 就可以了。
+
+3 盒模型不同解释
+#box{ width:600px; //for ie6.0- w\idth:500px; //for ff+ie6.0}
+ #box{ width:600px!important //for ff width:600px; //for ff+ie6.0 width /**/:500px; //for ie6.0-}
+
+ 4 浮动ie产生的双倍距离
+#box{ float:left; width:100px; margin:0 0 0 100px; //这种情况之下IE会产生200px的距离 display:inline; //使浮动忽略}
+这里细说一下block,inline两个元素,Block元素的特点是:总是在新行上开始,高度,宽度,行高,边距都可以控制(块元素);Inline元素的特点是:和其他元素在同一行上,...不可控制(内嵌元素);
+ #box{ display:block; //可以为内嵌元素模拟为块元素 display:inline; //实现同一行排列的的效果 diplay:table;
+
+ IE不认得min-这个定义，但实际上它把正常的width和height当作有min的情况来使。这样问题就大了，如果只用宽度和高度，
+ 正常的浏览器里这两个值就不会变，如果只用min-width和min-height的话，IE下面根本等于没有设置宽度和高度。
+ 比如要设置背景图片，这个宽度是比较重要的。要解决这个问题，可以这样：
+#box{ width: 80px; height: 35px;}html>body #box{ width: auto; height: auto; min-width: 80px; min-height: 35px;}
+
+ 6 页面的最小宽度
+min-width是个非常方便的CSS命令，它可以指定元素最小也不能小于某个宽度，这样就能保证排版一直正确。但IE不认得这个，
+ 而它实际上把width当做最小宽度来使。为了让这一命令在IE上也能用，可以把一个<div> 放到 <body> 标签下，然后为div指定一个类：
+ 然后CSS这样设计：
+#container{ min-width: 600px; width:expression(document.body.clientWidth < 600? "600px": "auto" );}
+第一个min-width是正常的；但第2行的width使用了Javascript，这只有IE才认得，这也会让你的HTML文档不太正规。它实际上通过Javascript的判断来实现最小宽度。
+
+7 清除浮动
+.hackbox{ display:table; //将对象作为块元素级的表格显示}或者.hackbox{ clear:both;}
+或者加入:after（伪对象）,设置在对象后发生的内容，通常和content配合使用，IE不支持此伪对象，非Ie 浏览器支持，
+ 所 以并不影响到IE/WIN浏览器。这种的最麻烦的......#box:after{ content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+
+ 8 DIV浮动IE文本产生3象素的bug
+左边对象浮动，右边采用外补丁的左边距来定位，右边对象内的文本会离左边有3px的间距.
+ #box{ float:left; width:800px;}#left{ float:left; width:50%;}#right{ width:50%;}*html #left{ margin-right:-3px; //这句是关键}
+HTML代码<div id="box"> <div id="left"></div> <div id="right"></div></div>
+
+ 9 属性选择器(这个不能算是兼容,是隐藏css的一个bug)
+ p[id]{}div[id]{}
+这个对于IE6.0和IE6.0以下的版本都隐藏,FF和OPera作用
+ 属性选择器和子选择器还是有区别的,子选择器的范围从形式来说缩小了,属性选择器的范围比较大,如p[id]中,所有p标签中有id的都是同样式的.
+
+10 IE捉迷藏的问题
+ 当div应用复杂的时候每个栏中又有一些链接，DIV等这个时候容易发生捉迷藏的问题。
+ 有些内容显示不出来，当鼠标选择这个区域是发现内容确实在页面。
+ 解决办法：对#layout使用line-height属性 或者给#layout使用固定高和宽。页面结构尽量简单。
+
+11 高度不适应
+ 高度不适应是当内层对象的高度发生变化时外层高度不能自动进行调节，特别是当内层对象使用
+margin 或paddign 时。
+ 例：
+<div id="box"> 
+ <p>p对象中的内容</p> 
+ </div> 
+ CSS：#box {background-color:#eee; } 
+ #box p {margin-top: 20px;margin-bottom: 20px; text-align:center; }
+解决方法：在P对象上下各加2个空的div对象CSS代码：.1{height:0px;overflow:hidden;}或者为DIV加上border属性。 
+
+http://nec.netease.com/case

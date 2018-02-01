@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "cirsAdmin.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品查询</title>
+<!--<@cssJs /> -->
+<style type="text/css">
+*+html .leftbox .titlename{margin-right:-3px}/* IE7 */ 
+*+html  .input_div{ /* background-color: olive; */padding: 0px;text-align: left;}/* IE7 */ 
+
+
+</style>
+	</head>
+	<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="用户查询"  second="用户列表"/> -->
+
+<div align="center" class="product_content" style="margin-top: 40px;">
+			<div class="toptitle">
+				<div class="contentname">
+					<div>
+						序号
+					</div>
+					<div>
+						账号
+					</div>
+					<div>
+						公司名称
+					</div>
+					<div>
+						法律责任人
+					</div>
+					<div>
+						专用邮箱
+					</div>
+					<div>
+						注册人代码
+					</div>
+					<div>
+						状态
+					</div>
+					<div>
+						操&nbsp;&nbsp;作
+					</div>
+				</div>
+			</div>
+			<div class="content_all">
+				<ul class="contentall_li">
+			<#if musers??> 
+				<#list musers as muser>
+						<li>
+						<div class="lidiv">
+							<div>
+								${muser_index +muser.currentRowNo?default(1)}
+							</div>
+							<div>
+							    &nbsp;&nbsp;${muser.user.account}
+							</div>
+							<div title="${muser.companyName}">
+								&nbsp;&nbsp;<@textCut value="${muser.companyName}" len=12 append="..." />
+							</div>
+							<div >
+								&nbsp;&nbsp;${muser.legalPerson}
+							</div>
+							<div title="${muser.specialMail}">
+								&nbsp;&nbsp;<@textCut value="${muser.specialMail}" len=12 append="..." />
+							</div>
+							<div >
+								&nbsp;&nbsp;${muser.registeredCode}
+							</div>
+							<div >
+								&nbsp;&nbsp;<#if (muser.user.status ="1")>正常</#if><#if (muser.user.status ="2")>暂停注册权</#if><#if (muser.user.status ="3")>注销</#if>
+							</div>
+							<div >
+								<button type="button" onclick="detail('${muser.user.id}');">详情</button>
+							</div>
+						</div>
+						</li>
+					</#list>
+   		 		</#if> 
+				</ul>
+			</div>
+			<div class="divbottom">
+				<div class="pager-plugin" id="pager"></div>
+				
+				</div>
+		</div>
+	
+	
+<div class="fisrt_bottom_xian"></div>
+<!--<#include "ufoot.html"/><!--尾部结束-->
+<script type="text/javascript">
+	//查看详情
+	function detail(muserId){
+		 window.location.href="<@s.url '/cirsAdmin/muser_detail?muserId='/>"+muserId;
+	}
+	
+	//分页
+	PageClick = function(pageclickednumber) {
+        $("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+        //跳转
+        location = '<@s.url '/cirsAdmin/muser_list'/>?page='+pageclickednumber;
+    }
+	var total = ${total};
+    if(total > 0)
+	{
+	   total = Math.floor(total%10==0?total/10:(total/10+1));
+	   $("#pager").pager({ pagenumber: ${muser.page?default(1)}, pagecount: total, buttonClickCallback: PageClick });
+	}
+    
+$(function(){
+  //给列表设置样式,行数为单数样式为#----.contentall_li
+	$(".contentall_li li:even").css("background-color","#E6E3E3");
+	$(".contentall_li li:odd").css("background-color","#F2F2F2");
+	$(".selectstyle ul li:not(.optionselect)").hover(
+		function(){
+			$(this).css("background-color","#69AAEC");
+			$(this).css("color","#fff");
+		},
+		function(){
+			$(this).css("background-color","#fff");
+			$(this).css("color","#333");
+		}
+	);
+});
+</script>
+	</body>
+</html>

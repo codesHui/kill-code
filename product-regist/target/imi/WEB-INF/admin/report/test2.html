@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>报表二</title>
+<!--<@cssJs /> -->
+<style type="text/css">
+
+td{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	border:1.0pt solid #ddd; 
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:
+	font-family:仿宋_GB2312, serif;
+	mso-font-charset:134;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+
+	white-space:normal;}
+	
+.toptitle td{
+
+}	
+						
+.product_condition .content .leftbox{}
+.datePicker{
+/* background-image:  ”<@s.url '/resources/datePicker/skin/datePicker.gif'/>“ */
+
+}
+</style>
+	</head>
+	<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="报表管理"  second="报表二"/> -->
+
+
+<script type="text/javascript" src="<@s.url '/resources/datePicker/WdatePicker.js'/>" ></script>
+<form action="<@s.url'/admin/report/test2'/>" method="get" id="submit_report_test'">
+	<div class="product_condition" align="center"
+		style="margin-top: 40px; height: 150px;">
+
+		<div class="content" style="height: 100px;">
+			<div class="float_left leftbox" style="margin-left: 25px;">
+				<div class="hangstyle margin_top_10">
+					<div class="float_left titlename">开始时间：</div>
+					<div class="input_div" style="width: 300px;">
+						<input type="text" name="registTimeStart"  value="${registTimeStart}" class="datePicker" onClick="WdatePicker()">
+						<div>${registTimeStart}</div>
+					</div>
+				</div>
+			<div class="hangstyle">
+							<div class="float_left titlename">种类：</div>
+							<div class="input_div" style="width: 300px;">
+					
+							   <select id="productType" name="productType">
+    					  				<option value=""  >全部</option>
+    					  				
+    					  				<option value="1"  <#if productType=='1'>selected</#if>>主险</option>
+    					  				<option value="2"  <#if productType=='2'>selected</#if>>附加险</option>
+  					 			</select>
+							</div>
+				</div>
+			
+			</div>
+			
+			
+			<div class="float_left leftbox">
+				<div class="hangstyle margin_top_10">
+					<div class="float_left titlename">结束时间：</div>
+					<div class="input_div" style="width: 300px;">
+						<input type="text"  name="registTimeEnd" value="${registTimeEnd}" onClick="WdatePicker()">
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+		<div class="bottomdiv">
+			<button onclick="select();">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+		</div>
+	</div>
+	
+	</form>
+	
+ <div class="product_content" align="center" style="margin-top: 5px">
+<table style='border-collapse:collapse;table-layout:fixed;width:956pt'>
+<tr class="toptitle">
+ 
+  <td rowspan=2  width=220 style='color: white;width:165pt'>公司名称</td>
+  <td  width=120 style='color: white;width:90pt'>注册情况</td>
+  <td  width=113 style='color: white;width:85pt'>注销情况</td>
+  <td  width=98 style='color: white;width:74pt'>核查情况</td>
+  <td  width=110 style='color: white;width:83pt'>问题产品情况</td>
+  <td width=319 style='color: white;width:240pt' colspan=3  >条款文本语言情况</td>
+ </tr>
+ <tr class="toptitle" height=19 style='height:14.25pt'>
+  <td style='color: white'>数量</td>
+  <td style='color: white'>数量</td>
+  <td style='color: white'>次数</td>
+  <td style='color: white'>数量</td>
+  <td style='color: white'>中文</td>
+  <td style='color: white'>英文</td>
+  <td style='color: white'>其他语言</td>
+ </tr>
+	<#if reportList??> 
+					<#list reportList as vo>
+					<tr>
+				<td>${vo.companyName}</td>
+				<td>${vo.registNum}</td>
+				<td>${vo.cancelNum}</td>
+				<td>${vo.verifyNum}</td>
+				<td>${vo.problemNum}</td>
+				<td>${vo.chineseNum}</td>
+				<td>${vo.englishNum}</td>
+				<td>${vo.otherNum}</td>
+				</tr>
+	</#list>
+ </#if> 
+ 			
+				
+ 
+</table>
+
+</div>
+ 
+
+<script type="text/javascript">
+function select(){
+	$("#submit_report_test").submit();
+}
+
+</script>
+
+<div class="fisrt_bottom_xian"></div>
+<#include "ufoot.html"/>
+<!----------------------------->
+<!--“从 EXCEL 发布网页”向导结束-->
+<!----------------------------->
+</body>
+
+</html>
+

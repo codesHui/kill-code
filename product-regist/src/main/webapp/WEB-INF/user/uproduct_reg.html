@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "userNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品注册</title>
+<!--<@cssJs /> -->
+<link href="<@s.url '/resources/css/uploadify.css'/>" rel="stylesheet" type="text/css" />   
+<script type="text/javascript" src="<@s.url '/resources/js/jquery.uploadify.js'/>"></script>
+<style type="text/css">
+*+html .product_manager_two .shang .shangleft  .onebox{ float:left;}/* IE7 */ 
+*+html .product_manager_two .shang .shangleft .onebox .leftname{margin-right:-3px} /* IE7 */ 
+*+html .product_manager_two .shang .shangleft .onebox .canchange{margin: 0px;width:317px; }/* IE7 */
+*+html #tiaokuan_no{margin-top: 10px;margin-left: 60px;}
+*+html #tiaokuan_use{margin-top: 10px;margin-left: 60px;}
+*+html .tiaokuan_div{width: 100%;text-align: left;}
+</style>
+</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+	<!-- <@usernav title="产品管理"  second="产品注册"/> -->
+		<!-- header -->
+		<!-- 审核部分 -->
+		<form action="<@s.url'/user/insert'/>" method="post" id="insert_product_info">
+		<div class="product_manager_two" align="center">
+			<!-- 单选按钮 -->
+			<div class="radiodiv">
+				<div class="radiobox">
+					<div class="width_top">
+						<input type="hidden" id="productType" name="productType" value="" />
+						<div id="product_pre"  class="float_left margin_top_15 margin_left_20 radio_normal">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">主险</span>
+						<div id="product_add"  class="float_left margin_top_15 margin_left_20 radio_normal">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">附加险</span>
+						<div id="product_other"  class="float_left margin_top_15 margin_left_20 radio_normal">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">其他</span>
+						<!--<div id="product_pre" class="radio_normal float_left margin_top_15 ">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">主险</span>
+						<div id="product_add" class="radio_normal float_left margin_top_15 margin_left_132">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">附加险</span>
+						<div id="product_other" class="radio_normal float_left margin_top_15 margin_left_132">
+						</div>
+						<span  style="margin-left: 5px;" class="float_left">其他</span>-->
+					</div>
+				</div>
+			</div>
+			<!-- height:405px 具体内容 -->
+			<div style="width: 990px;">
+				<!-- 上部分 -->
+				<div class="shang"> 
+					<!-- 左边 -->
+					<div class="shangleft">
+						<div class="onebox">
+							<div class="leftname">产品注册人</div>
+							<div class="canchange">
+								<input type="text" value="${productInfo.user.companyName}" readonly="readonly"/>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人姓名</div>
+							<div class="canchange">
+								<input type="text" value="${productInfo.user.contactPerson1Name}" name="contactPersonName"/>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人电话</div>
+							<div class="canchange">
+								<input type="text" value="${productInfo.user.contactPerson1Phone}" name="contactPersonPhone"/>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">联系人邮箱</div>
+							<div class="canchange">
+								<input type="text" value="${productInfo.user.contactPerson1Email}" name="contactPersonEmail"/>
+							</div>
+						</div>
+						<div class="onebox">
+							<div class="leftname">法律责任人</div>
+							<div class="canchange">
+								<input type="text" value="${productInfo.user.legalPerson}" readonly="readonly"/>
+							</div>
+						</div>
+					
+					</div>
+					<!-- 右边 -->
+					<div class="shangright">
+						<div class="hangstyle">
+							<div class="float_left titlename">产品名称：</div>
+							<div style="width: 300px;">
+								<input type="text" name="productName" id="productName"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">产品语言：</div>
+							<div style="width: 300px; ">
+								<select style="width: 80px;float:left;margin-top: 8px; margin-left:13px" name="productLanguages" id="productLanguages" onChange="getLanguage(this.options[this.selectedIndex].value);">
+									<option value="中文" selected="selected">中文</option>
+									<option value="英文">英文</option>
+									<option value="其他">其他</option>
+								</select>
+								<input style="float:left; display:none; width: 115px; margin-top: 8px;" type="text" name="productLanguage" id="productLanguage" value="中文"/>
+								<!-- <div id="languageDiv" style="display:none"><input type="text" name="productLanguage" id="productLanguage" value="中文"/></div> -->
+							</div>
+						</div>
+						<div class="hangstyle"  id="chineseNameDiv" style="display:none">
+							<div class="float_left titlename">中文名称：</div>
+							<div style="width: 300px;">
+								<input type="text" name="chineseName" id="chineseName"/>
+							</div>
+						</div>						
+						<div class="hangstyle">
+							<div class="float_left titlename">险类名称：</div>
+							<div style="width: 300px;">
+								<select name="riskType"  id="riskType" onChange="getRiskName(this.options[this.selectedIndex].value);">
+									<option value="09">货运保险</option>
+									<option value="08">船舶保险</option>
+									<option value="05">航运责任保险</option>
+									<option value="81">离岸能源保险</option>
+									<option value="82">航空器及其相关责任保险</option>
+									<option value="89">其他航运</option>
+								</select>
+							</div>
+						</div>
+						<div class="hangstyle" id="risk">
+							<div class="float_left titlename">险种名称：</div>
+							<div style="width: 300px;">
+								<select name="riskName" id="riskName">
+								</select>
+							</div>
+						</div>
+						<div class="hangstyle" id="protectionTypeDiv">
+							<div class="float_left titlename">条款保护期：</div>
+							<div style="width: 520px; color: #fff;">
+								<input type="hidden" id="protectionType" name="protectionType" value="" />
+								<div>
+									<div id="tiaokuan_use" class="float_left margin_top_15 margin_left_10 radio_normal"></div>
+									<span style="margin-left: 5px; margin-top: 3px;" class="float_left">使用保护期（6个月）</span>
+								</div>
+								<div class="tiaokuan_div">
+									<div id="tiaokuan_no" class="float_left margin_top_15 margin_left_45 radio_normal"></div>
+									<span style="margin-left: 5px; margin-top: 3px;" class="float_left">不用保护期</span>
+								</div>
+							</div>
+						</div>
+						<div class="hangstyle"  id="regReasonDiv" style="display:none">
+							<div class="float_left titlename">外文条款注册原因：</div>
+							<div style="width: 300px;">
+								<@dictSelect type="PRO_REG_REASON" id="proRegReason" name="proRegReason" option="请选择" showSelect=true />
+							</div>
+						</div>
+						<div id="num" style="display: none;">
+							<div class="hangstyle">
+							<div class="float_left titlename">主险<span style="color: red;">*</span></div>
+								<div style="width: 350px;">
+									<input type="hidden" value="" id="test">
+									<input type="text" value="" name="mainSafe" id="mainSafe"/>
+									<span style="color: white;">条</span>
+								</div>
+							<div class="float_left titlename">附加险<span style="color: red;">*</span></div>
+								<div style="width: 350px;">
+									<input type="text" value="" name="addSafe" id="addSafe"/>
+									<span style="color: white;">条</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- 下边 -->				 
+			
+				<div class="xiafang" style="margin-top: 60px;">
+				<@shiro.hasRole name="buser">  
+					<div class="onediv">
+						<div class="title">认可该产品的保险公司：</div>
+						<div class="topdiv">
+							<textarea id="accreditationCompany" name="accreditationCompany"></textarea>
+						</div>
+					</div>
+						</@shiro.hasRole> 
+					<div class="onediv">
+						<div class="title">备注:</div>
+						<div class="topdiv">
+							<textarea id="description" name="description"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 提交注册 -->
+		<div class="product_manager_three" align="center" style="height:270px;">
+			<div style="width: 990px;">
+				<div class="hangstyle" style="height: 65px;">
+					<div class="name">
+						上传附件:
+					</div>
+					<div class="btndivstyle">
+							<input type="file" name="uploadify" id="word_uploadify" />
+						</div>
+					<!-- 上传之后的提示 -->
+					<div class="succeseinfo" id="word_tiShi">
+						
+					</div> 
+				</div>
+				<div class="hangstyle"  style="height: 65px;">
+					<div class="name">
+					pdf版条款文本
+					</div>
+					<div class="btndivstyle">
+								
+						<input type="file" name="uploadify" id="pdf_uploadify" />
+					</div>
+					<!-- 上传之后的提示 -->
+					<div class="succeseinfo" id="pdf_tiShi" >
+					</div> 
+				</div>
+				<@shiro.hasRole name="buser">  
+				<div class="hangstyle" style="height: 70px;">
+					<div class="name">
+						保险公司认可材料:
+					</div>
+					<div class="btndivstyle"  style="height: 65px;">
+						<input type="file" name="uploadify" id="other_uploadify" />
+					</div>
+					<!-- 上传之后的提示 -->
+					<div class="succeseinfo" id="other_tiShi">
+					</div> 
+				</div>
+				</@shiro.hasRole> 
+			</div>
+			<button type="button" id="btn_reg" class="submit" onclick="insert();">提交注册</button>
+		</div>
+		<input type="hidden" name="attr_id_list" id="attr_id_list"/>
+			<input type="hidden" name="attr_ext_list" id="attr_ext_list"/>
+		</form>
+<div class="fisrt_bottom_xian"></div>
+<!--<#include "ufoot.html"/><!--尾部结束-->
+		
+		<script type="text/javascript">
+		var checkflag={word:0,pdf:0,other:0,chinese:0,regReasonFlag:0};
+		/*     var  wordFlag = 0;
+		    var pdfFlag = 0;
+		    otherFlag = 0;
+		    var chinese = 0; */
+		    var doubleCheck=false;
+		    var checkword=false;
+			$(function(){
+                //默认选中主险
+			    $("#product_pre").click();
+                $("#product_add").removeClass("radio_checked").addClass("radio_normal");
+                $("#product_other").removeClass("radio_checked").addClass("radio_normal");
+                $("#product_pre").addClass("radio_checked");
+                $("#productType").val(1);
+                $("#test").val(-1);
+                $("#risk").show();
+                $("#productLanguages").get(0).selectedIndex=0;
+                getRiskName($("#riskType").val());
+                $("#num").hide();
+
+				//单选按钮事件
+				$("#product_pre").click(function(){
+					if($("#product_add").hasClass("radio_checked")||$("#product_other").hasClass("radio_checked")){
+						$("#product_add").removeClass("radio_checked").addClass("radio_normal");
+                        $("#product_other").removeClass("radio_checked").addClass("radio_normal");
+						$("#product_pre").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(1);
+						$("#risk").show();
+                        $("#productLanguages").get(0).selectedIndex=0;
+                        getLanguage("中文");
+                        getRiskName($("#riskType").val());
+                        $("#num").hide();
+                        $("#test").val(-1);
+					}
+					else if(!$("#product_add").hasClass("radio_checked") && !$("#product_pre").hasClass("radio_checked")&& !$("#product_other").hasClass("radio_checked")){
+						$("#product_pre").addClass("radio_checked");
+						$("#productType").val(1);
+					}
+				});
+				$("#product_add").click(function(){
+					if($("#product_pre").hasClass("radio_checked")||$("#product_other").hasClass("radio_checked")){
+						$("#product_pre").removeClass("radio_checked").addClass("radio_normal");
+						$("#product_add").removeClass("radio_normal").addClass("radio_checked");
+                        $("#product_other").removeClass("radio_checked").addClass("radio_normal");
+						$("#productType").val(2);
+						$("#test").val(0);
+						$("#risk").hide();
+                        $("#productLanguages").get(0).selectedIndex=0;
+                        getLanguage("中文");
+                        $("#num").hide();
+						/*$("#riskName").html("");
+						$("#riskName").append("<option value=''>全部</option>");
+						if($("#riskName").options)
+						$("#riskName").options[0].selected="selected";*/
+					}
+					else if(!$("#product_pre").hasClass("radio_checked") && !$("#product_add").hasClass("radio_checked")&& !$("#product_other").hasClass("radio_checked")){
+						$("#product_add").addClass("radio_checked");
+						$("#productType").val(2);
+						$("#risk").hide();
+						/*$("#riskName").html("");
+						$("#riskName").append("<option value=''>全部</option>");
+						if($("#riskName").options)
+						$("#riskName").options[0].selected="selected";*/
+					}
+				});
+                $("#product_other").click(function(){
+                    if($("#product_add").hasClass("radio_checked")||$("#product_pre").hasClass("radio_checked")){
+                        $("#product_pre").removeClass("radio_checked").addClass("radio_normal");
+                        $("#product_add").removeClass("radio_checked").addClass("radio_normal");
+                        $("#product_other").removeClass("radio_normal").addClass("radio_checked");
+                        $("#productType").val(3);
+                        $("#risk").show();
+                        $("#riskType").get(0).selectedIndex=5;
+                        $("#productLanguages").get(0).selectedIndex=1;
+                        getLanguage("英文");
+                        $("#num").show();
+                        getRiskName($("#riskType").val());
+                        $("#test").val(1);
+                    }
+                    else if(!$("#product_pre").hasClass("radio_checked") && !$("#product_add").hasClass("radio_checked")&& !$("#product_other").hasClass("radio_checked")){
+                        $("#product_other").addClass("radio_checked");
+                        $("#productType").val(3);
+
+                    }
+                });
+                //语言切换
+               /* $("#riskType").change(function () {
+					if($("#riskType").val()=="89"){
+                        $("#productLanguages").get(0).selectedIndex=1;
+                        getLanguage("英文");
+                        $("#num").show();
+					}else{
+                        $("#productLanguages").get(0).selectedIndex=0;
+                        getLanguage("中文");
+                        $("#num").hide();
+					}
+                });*/
+                //英文语言
+                $("#riskName").change(function(){
+                   if($("#riskName").val()=="89OB"){
+                       $("#product_other").click();
+                       $("#productLanguages").get(0).selectedIndex=1;
+                       getLanguage("英文");
+                       $("#num").show();
+                   }/*else{
+                       $("#productLanguages").get(0).selectedIndex=0;
+                       getLanguage("中文");
+                       $("#num").hide();
+				   }*/
+
+                });
+				//单选按钮事件
+				$("#tiaokuan_use").click(function(){
+					
+					if($("#tiaokuan_no").hasClass("radio_checked")){
+						$("#tiaokuan_no").removeClass("radio_checked").addClass("radio_normal");
+						$("#tiaokuan_use").removeClass("radio_normal").addClass("radio_checked");
+						$("#protectionType").val(1);
+					}
+					else if(!$("#tiaokuan_use").hasClass("radio_checked") && !$("#tiaokuan_no").hasClass("radio_checked")){
+						$("#tiaokuan_use").addClass("radio_checked");
+						$("#protectionType").val(1);
+					}
+				});
+				$("#tiaokuan_no").click(function(){
+					if($("#tiaokuan_use").hasClass("radio_checked")){
+						$("#tiaokuan_use").removeClass("radio_checked").addClass("radio_normal");
+						$("#tiaokuan_no").removeClass("radio_normal").addClass("radio_checked");
+						$("#protectionType").val(2);
+					}
+					else if(!$("#tiaokuan_use").hasClass("radio_checked") && !$("#tiaokuan_no").hasClass("radio_checked")){
+						$("#tiaokuan_no").addClass("radio_checked");
+						$("#protectionType").val(2);;
+					}
+				});
+				
+			});
+			
+			//提交注册
+			function insert(){
+				var productType = $("#productType").val();
+				if(productType == ""){
+					alert("产品类型没有选择！");
+					return false;
+				}
+
+				var productName = $("#productName").val();
+				if($.trim(productName)==0){
+					alert("产品名称没有填写！");
+					return false;
+				}
+
+                if($("#productLanguages").val()=="英文"){
+                    var cname=/^[ 0-9a-zA-Z]+$/;
+                    if(cname.test($("#productName").val())==false){
+                        alert("产品名称只允许出现字母、数字和空格！");
+                        return false;
+                    }
+                }
+
+                var productLanguage = $("#productLanguage").val();
+				if(productLanguage == ""){
+					alert("产品语言没有填写！");
+					return false;
+				}
+
+				if(checkflag['chinese'] == 0){
+					$("#chineseName").val(productName);
+				}
+				var chineseName = $("#chineseName").val();
+				if($.trim(chineseName) == ""){
+					alert("中文名称没有填写！");
+					return false;
+				}
+				
+				var protectionType = $("#protectionType").val();
+				if(protectionType == ""){
+					alert("条件保护期没有选择！");
+					return false;
+				}
+				if($("#test").val()=="1"){
+				    //判断主险/附加险为1~999的整数
+                   var mainSafe=$("#mainSafe").val();
+                    var addSafe=$("#addSafe").val();
+                    var count=/^(?!0)\d{1,3}$/;
+
+                    if(mainSafe==""){
+                        alert("主险数量没有填写!");
+                        return false;
+                    }
+
+					if(count.test($("#mainSafe").val())==false){
+						alert("主险对应的数量为1~999的整数!");
+						return false;
+                    }
+
+                    if(addSafe==""){
+                        alert("附加险数量没有填写!");
+                        return false;
+                    }
+
+                    if(count.test($("#addSafe").val())==false){
+                        alert("附加险对应的数量为1~999的整数!");
+                        return false;
+                    }
+				}
+
+				if(checkflag['regReasonFlag'] != 0){
+					var regReason = $("#proRegReason").val();
+					if(regReason == ""){
+						alert("外文条款注册原因没有选择！");
+						return false;
+					}
+				}
+				if(checkflag['regReasonFlag'] == 0){
+					$("#proRegReason").val("");
+				}
+				
+				<@shiro.hasRole name="buser">
+				var accreditationCompany = $("#accreditationCompany").val();
+				if(accreditationCompany == ""){
+					alert("认可该产品的保险公司没有填写！");
+					return false;
+				}
+				</@shiro.hasRole>
+				 if(checkflag['word'] == 0){
+					alert("没有上传word文件！");
+					return false;
+				}
+
+				 if(checkflag['pdf'] == 0){
+					alert("没有上传条款全文的PDF文件！");
+					return false;
+				}
+				<@shiro.hasRole name="buser">
+				if(checkflag['other'] == 0){
+					alert("没有上传认可公司的PDF文件！");
+					return false;
+				}
+				</@shiro.hasRole>
+				// 获取上传附件ID集合，多个ID以都好隔开
+				var id_list = [];
+				var ext_list=[];
+				$("#word_tiShi").find("a.flag").each(function(){
+					//id_list = id_list + $(this).attr("param")+",";
+					id_list.push($(this).attr("param"));
+					ext_list.push($(this).attr("ext"));
+				})
+				$("#pdf_tiShi").find("a.flag").each(function(){
+					//id_list = id_list + $(this).attr("param")+",";
+					
+					id_list.push($(this).attr("param"));
+					ext_list.push($(this).attr("ext"));
+				})
+				$("#other_tiShi").find("a.flag").each(function(){
+				/* 	id_list = id_list + $(this).attr("param")+","; */
+					id_list.push($(this).attr("param"));
+					ext_list.push($(this).attr("ext"));
+				})
+				
+			/* 	if(id_list != ""){
+					id_list = id_list.substring(0, id_list.length - 1);
+				} */
+				
+				$("#attr_id_list").val(id_list.join(","));
+				$("#attr_ext_list").val(ext_list.join(","));
+				if(!doubleCheck&&checkKeywords()){
+				
+					$("#insert_product_info").submit();
+					
+					doubleCheck=true;
+				}
+				
+				
+			}
+			
+			//关键字检查
+			function checkKeywords(){
+				var flag=false;
+				if(checkword==true){
+					alert("正在审核关键字");
+					return false;
+				}
+				checkword=true;
+				$("#btn_reg").html("正在审核中");
+					$.ajax({
+				        type : "post",
+				        async : false,
+				        url : "<@s.url '/user/checkKeyWords'/>",
+				        data : {
+				        	str : $("#productName").val()+$("#productLanguage").val()+$("#chineseName").val()+$("#description").val()
+				        },
+				        dataType : "json",
+				        success : function(data,status) {
+				        	checkword=false;
+				        	if(data.success){
+					        	if(data.msg == "1"){
+					        		
+					        		flag=true;
+					        		
+									}else{
+									
+									flag=false;
+									alert("发现关键字："+data.msg);
+
+
+									$("#insert_product_info").attr("action","<@s.url'/user/test_insert'/>").submit();
+
+                                    // window.location.href = "<@s.url'/user/test_insert'/>";
+
+
+								}
+							}
+				        }
+				   });
+				$("#btn_reg").html("提交注册");
+				return flag;
+			}
+			
+			
+			$(document).ready(function() {  
+			
+				<@shiro.hasRole name="buser">  
+				    //$("#protectionTypeDiv").css("display","none");
+				    //$("#protectionType").val(2);
+				</@shiro.hasRole>
+				
+				//下拉框初始化
+				var riskName = $("#riskName");
+				riskName.html("");
+			  $.ajax({
+			        type : "post",
+			        url : "<@s.url '/user/riskName'/>",
+			        data : {
+			        	key : $("#riskType").val()
+			        },
+			        dataType : "json",
+			        success : function(data) {
+			        	if(data.success)
+						{
+				           for(var i =0;i<data.data.length;i++){
+				        	   var dic=data.data[i].split("|");
+				        	   riskName.append("<option value='" + dic[0] + "'>"  + dic[1] + "</option>"); 
+				          } 
+						}
+			        }
+			   });  
+				
+		        $("#word_uploadify").uploadify({
+		        	 swf           : "<@s.url '/resources/img/uploadify.swf'/>",
+		            uploader       : "<@s.url '/att/insert'/>",  
+		            cancelImg      : "<@s.url '/resources/img/uploadify-cancel.png'/>",  
+		            folder         : 'uploads',
+		            queueID        : 'word_tiShi',
+		            queueSizeLimit :1,
+		            buttonText     : "上传word版条款文本",
+		            fileDesc       : "doc文件", 
+		            formData      : {'filetype':'0'},  
+		            fileTypeExts   : '*.doc;*.docx',
+		            auto           : true,  
+		            multi          : false,  
+		            fileSizeLimit  : "0.001MB",
+		            overrideEvents : ['onSelectError','onCancel'],
+		            onSelectError  : uploadify_onSelectError,  
+		            uploadLimit    : 1,
+		            removeCompleted:false,
+		            preventCaching : true,
+		            method         : 'POST',
+		            onUploadStart  : function(){},
+		            onUploadSuccess  : function(file, data, response){
+		            	data = eval("(" + data + ")");
+		            	if(!data.success){
+		            		alert(data.msg);
+		            	}else{
+		            		/* wordFlag =1; */
+		            		
+		            		checkflag['word']=1;
+		            		 $("#"+file.id).find("div.cancel>a").attr("href","javascript:void(0);")
+		            		 	.attr("onclick","cancelSuccessFile(this)").attr("param",data.id).attr("fileId",file.id)
+		            		 	.attr("ext",'word').addClass("flag");
+		            	}
+		            }
+		        });
+		        
+		        
+		        
+		        
+		        
+		        
+		        
+		        
+		        $("#pdf_uploadify").uploadify({
+		        	 swf           : "<@s.url '/resources/img/uploadify.swf'/>",
+		            uploader       : "<@s.url '/att/insert'/>",
+		            cancelImg      : "<@s.url '/resources/img/uploadify-cancel.png'/>",
+		            folder         : 'uploads',
+		          	queueID        : 'pdf_tiShi',
+		          	queueSizeLimit :1,
+		            buttonText     : "上传pdf版条款文本",
+		            fileDesc       : "pdf文件",
+		            formData      : {'filetype':'1'},
+		            fileTypeExts   : '*.pdf',
+		            auto           : true,
+		            multi          : false,
+		            fileSizeLimit  : "0.001MB",
+		            overrideEvents : ['onSelectError','onCancel'],
+		            onSelectError  : uploadify_onSelectError,
+		            uploadLimit    : 1,
+		            removeCompleted:false,
+		            preventCaching : true,
+		            method         : 'POST',
+		            onUploadStart  : function(){
+		            	var data = {
+		            			filetype : 1  // 文件类型  1/条款 (需要在详情中PDF预览)  2/其他
+		            	}
+		            	jQuery('#pdf_uploadify').uploadify('settings','formData',data)
+		            },
+		            onUploadSuccess  : function(file, data, response){debugger;
+
+		            	data = eval("(" + data + ")");
+		            	if(!data.success){
+		            		alert(data.msg);
+		            	}else{
+		            		/* pdfFlag = 1; */
+		            		checkflag['pdf']=1;
+		            		 $("#"+file.id).find("div.cancel>a").attr("href","javascript:void(0);")
+		            		 	.attr("onclick","cancelSuccessFile(this)").attr("param",data.id).attr("fileId",file.id)
+		            		 	.attr("ext",'pdf').addClass("flag");
+		            	}
+		            }
+		        });
+
+		        <@shiro.hasRole name="buser">
+		        $("#other_uploadify").uploadify({  
+		        	 swf           : "<@s.url '/resources/img/uploadify.swf'/>",
+		            uploader       : "<@s.url '/att/insert'/>",  
+		            cancelImg      : "<@s.url '/resources/img/uploadify-cancel.png'/>",  
+		            folder         : 'uploads',
+		            queueID        : 'other_tiShi',
+		            queueSizeLimit :1,
+		            buttonText     : "上传其他版条款文本",
+		            fileDesc       : "doc或者pdf文件",     
+		            fileTypeExts   : '*.pdf;*.doc',
+		            formData      : {'filetype':'2'},  
+		            auto           : true,  
+		            multi          : false,  
+		            fileSizeLimit  : "0.001MB",
+		            overrideEvents : ['onSelectError','onCancel'],
+		            onSelectError  : uploadify_onSelectError,  
+		            uploadLimit    :1,
+		            removeCompleted:false,
+		            preventCaching : true,
+		            method         : 'POST',
+		            onUploadStart  : function(){
+		            	
+		            },
+		            onUploadSuccess  : function(file, data, response){
+		            	
+		            	data = eval("(" + data + ")");
+		            	if(!data.success){
+		            		alert(data.msg);
+		            	}else{
+		            		/* otherFlag = 1; */
+		            		checkflag['other']=1;
+		            		 $("#"+file.id).find("div.cancel>a").attr("href","javascript:void(0);")
+		            		 	.attr("onclick","cancelSuccessFile(this)").attr("param",data.id).attr("fileId",file.id)
+		            		 	.attr("ext",'other').addClass("flag");
+		            	}
+		            }
+		        });
+		        
+		        </@shiro.hasRole> 
+		        
+		        
+		        
+		        
+		        
+
+		        var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+		            var msgText = "上传失败\n";  
+		            switch (errorCode) {  
+		                case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:  
+		                    //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";  
+		                    msgText += "每次最多上传 " + this.settings.uploadLimit + "个文件";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:  
+		                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:  
+		                    msgText += "文件大小为0";  
+		                    break;  
+		                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:  
+		                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;  
+		                    break;  
+		                default:  
+		                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;  
+		            }  
+		            alert(msgText);  
+		        };  
+		       
+		    });  
+		 
+		 function cancelSuccessFile($this){
+			  // 上传成功附件ID
+	           var id =  $($this).attr("param");
+	           var fileid =  $($this).attr("fileId");
+	           var ext =  $($this).attr("ext");
+	           $.ajax({
+			        type : "post",
+			        url : "<@s.url '/att/delete'/>",
+			        data : {
+			        	id : id
+			        },
+			        dataType : "json",
+			        success : function(data,status) {
+			        	if(data.success)
+						{
+			        		//jQuery('#'+ ext +'_uploadify').uploadify('cancel');
+			        		checkflag[ext]=0;
+			        		jQuery('#'+ ext +'_uploadify').uploadify('cancel','*');
+			        	     var swfu = jQuery('#'+ ext +'_uploadify').data('uploadify');
+			        	        var stats = swfu.getStats();
+			        	        stats.successful_uploads--;
+			        	        swfu.setStats(stats);
+	
+						}
+			        }
+			   });  
+	      }
+		 
+		//险种二级联动
+		  function getRiskName(key){
+			$("#riskName").html("");
+			var riskName = $("#riskName");
+			 $.ajax({
+			        type : "post",
+			        url : "<@s.url '/user/riskName'/>",
+			        data : {
+			        	key : $("#riskType").val(),
+                        productType: $("#productType").val()
+			        },
+			        dataType : "json",
+			        success : function(data) {
+			        	if(data.success)
+						{
+				           for(var i =0;i<data.data.length;i++){
+				        	   var dic=data.data[i].split("|");
+				        	   riskName.append("<option value='" + dic[0] + "'>"  + dic[1] + "</option>"); 
+				          } 
+						}
+
+			        }
+			   });
+
+		  }
+		 //语言选择
+		  function getLanguage(language){
+			if(language == "英文"){
+				chinese =1;
+				checkflag['regReasonFlag']=1;//英文
+				$("#productLanguage").css("display","none");
+				$("#chineseNameDiv").css("display","block");
+				$("#regReasonDiv").css("display","block");
+				$("#productLanguage").val(language);
+			}
+			if(language == "中文"){
+				chinese =0;
+				checkflag['regReasonFlag']=0;//中文
+				$("#productLanguage").css("display","none");
+				$("#chineseNameDiv").css("display","none");
+				$("#regReasonDiv").css("display","none");
+				$("#chineseName").val($("#productName").val());
+                $("#productLanguage").val(language);
+			}
+			if(language == "其他"){
+				chinese =0;
+				checkflag['regReasonFlag']=2;//其他
+				$("#productLanguage").css("display","block");
+				$("#chineseNameDiv").css("display","block");
+				$("#regReasonDiv").css("display","block");
+				
+				$("#productLanguage").val("");
+			}
+			checkflag.chinese = chinese;
+		  }	
+		 
+	
+	
+	
+			
+		</script>
+		
+ <#if regErr??>
+
+	
+	<script type="text/javascript">
+		var regErr=${regErr};
+		if(regErr==1){
+		alert('保存附件失败,请重新注册!');	
+		}
+	</script>					
+	
+</#if>
+	</body>
+</html>

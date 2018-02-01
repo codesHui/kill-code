@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8" />
+<title>公示信息查询</title>
+<!--<@cssJs /> -->
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<!--<@topFrontHead  title="信息公示"/> -->	
+		<!-- 内容 -->
+		<div class="newsgonggao">
+			<div class="topstyle" align="center">
+			<form id='newsForm' action="<@s.url '/front/news'/>" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="pagenumber" name="pagenumber"/>
+			<input type="hidden" id="status" name="status"/>
+			<input type="hidden" id="checkAll" name="checkAll"/>
+				<div class="width_990 box">
+					<#if (checkAll="1")><label><input type="checkbox" name="btnCheckAll" id="btnCheckAll" checked="checked"/>全部</label>
+					</#if>
+					<#if (checkAll ="0")><label><input type="checkbox" name="btnCheckAll" id="btnCheckAll"/>全部</label>
+					</#if>
+					<label><input type="checkbox" name="state" id="state1" value="1"/>产品注册通知</label>
+					<label><input type="checkbox" name="state" id="state2" value="2"/>产品注销通知</label>
+					<label><input type="checkbox" name="state" id="state3" value="3"/>产品问题通知</label>
+					<label><input type="checkbox" name="state" id="state5" value="5"/>注册平台简报</label>
+					<label><input type="checkbox" name="state" id="state6" value="6"/>协会处理通报</label>
+					<label><input type="checkbox" name="state" id="state7" value="7"/>监督行政处理</label>
+					<label><input type="checkbox" name="state" id="state8" value="8"/>政策法规</label>
+					<label><input type="checkbox" name="state" id="state9" value="9"/>相关新闻</label>
+					
+				</div>
+			</form>
+			</div>
+			<div class="gongsicontent" align="center">
+				<div class="titlestyle">
+					<div class="lanmu">栏目</div>
+					<div class="contentgaiy">内容概要</div>
+					<div class="timestyle" style="margin-left: -5px">时间</div>
+					<div class="caozuo width_100">操作</div>
+				</div>
+			</div>
+			<div style="width: 100%;" align="center">
+				<ul class="newsgonggaoulstyle newulli">
+				<#list newslist as news>
+					<li>
+						<div class="width_990">
+							<div class="divstyle01">&nbsp;&nbsp;${news.title}</div>
+							<div class="divstyle02">&nbsp;&nbsp;${news.subtitle}</div>
+							<div class="divstyle03">&nbsp;&nbsp;${news.createTime}</div>
+							<div class="rightbtn">
+								<button style="margin-top: 5px;" onclick="showDetail('${news.id}')">查看详情</button>
+							</div>
+						</div>
+					</li>
+				</#list>
+				</ul>
+				<div style="width: 990px;height: 35px;line-height: 35px;">
+				<!-----------------------分页样式开始------------------------>
+					<div class="pager-plugin" id="pager"></div>
+				</div>
+				
+			</div>
+		</div>
+<div class="fisrt_bottom_xian"></div>
+<!--<#include "foot.html"/><!--尾部结束-->
+		
+		<script type="text/javascript">
+		
+		function showDetail(id)
+		{
+			id = id.replace(",","");
+			$.get("<@s.url '/front/newsinfo'/>",{
+		        newsId :id
+		    }, function(data, status) {
+		    	var obj = eval("("+data+")");
+		    	var info=obj.data;
+		    	var diag = new Dialog();
+				diag.Width = 800;
+				diag.Height = 600;
+			//	diag.Title ="详情页面";
+				diag.Title ="详情页面";
+				var content=[];
+				content.push("<div class='showDetail'>");
+				content.push("<p style='text-align: left;color: #999;font-size: 1.3em;line-height: 1.75em;font-weight: 500;margin: 10px;'><label style='color:rgb(84, 84, 95);'>栏&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目</label>:&nbsp;&nbsp;&nbsp;"+info.title+"</p>");
+				content.push("<p style='text-align: left;color: #999;font-size: 1.3em;line-height: 1.75em;font-weight: 500;margin: 10px;'><label style='color:rgb(84, 84, 95);'>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</label>:&nbsp;&nbsp;&nbsp;"+info.subtitle+"</p>");
+/* 								+"<p style='text-align: left;color: #999;font-size: 1.3em;line-height: 1.75em;font-weight: 500;margin: 10px;'><label style='color:rgb(84, 84, 95);'>内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>:&nbsp;&nbsp;&nbsp;</p>" */
+			if(info.	state>5){
+				content.push("<p style='  border-bottom: 1px solid #eee;'></p>");	
+				content.push("<div style='text-align: left;font-size: 1.3em;line-height: 1.75em;font-weight: 500;overflow-y:auto; overflow-x:auto; width:100%; height:525px;'>");
+				content.push("<pre>"+info.content+"</pre></div>");
+							}else{
+				content.push("<p style='text-align: left;color: #999;font-size: 1.3em;line-height: 1.75em;font-weight: 500;margin: 10px;'><label style='color:rgb(84, 84, 95);'>内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>:&nbsp;&nbsp;&nbsp;"+info.content+"</p>"); 
+							}
+			content.push("</div>");
+				diag.InnerHtml=content.join("");
+				diag.show();
+		    }); 
+		}
+		
+		function getStateAndSubmit(){
+			var stateStr="";
+				$("[name=state]:checked").each(function(i){
+					if(i<$("[name=state]:checked").length-1){
+						stateStr+=$(this).val()+",";
+					}else{
+						stateStr+=$(this).val();
+					}
+				 });
+				if(stateStr!=null && stateStr!=""){
+					$("#status").val(stateStr);
+				}
+				$("#newsForm").submit();
+		}
+		//---------------------分页样式开始----------------------
+			$(function(){
+				//给列表设置样式,行数为单数样式为#----.contentall_li
+				$(".newsgonggaoulstyle li:odd").css("background-color","#ccc");
+				// 全选
+	            $("#btnCheckAll").click(function () {
+	            	if($("#btnCheckAll").is(':checked')){
+	            		$("[name=state]:checkbox").attr("checked", true);
+	            		$("#checkAll").val(1);
+	            	}else{
+	                	$("[name=state]:checkbox").attr("checked", false);
+	                	$("#checkAll").val(0);
+	            	}
+	                getStateAndSubmit();
+	            });
+				
+				//选择的checkbox
+				$("[name=state]:checkbox").click(function(){
+					getStateAndSubmit();
+				});
+				
+				var status=${states}+"";
+				 if(status!=null&&status.length==1){
+					  $("[id = state"+status+"]:checkbox").attr("checked", true);
+				 } else{
+					for(var i=0;i<=status.length;i++){
+						$("[id = state"+status.charAt(i)+"]:checkbox").attr("checked", true);
+					} 
+				 }
+				 
+				//分页
+				total = ${total};
+				PageClick = function(pageclickednumber) {
+	       		$("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+	        	//跳转
+	            $("#pagenumber").val(pageclickednumber);
+	            getStateAndSubmit();
+	    		}
+	    		if(total > 0)
+				{
+		   			total = Math.floor(total%10==0?total/10:(total/10+1));
+		   			$("#pager").pager({ pagenumber:  ${page}, pagecount: total, buttonClickCallback: PageClick });
+				}
+	    
+			});
+			//---------------------分页样式结束----------------------
+		</script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<#--菜单设置列表-->
+<#include "/comm.ftl"/>
+<#assign module="admin_security_menu"/>
+<#assign dg="${module}_list_dg"/>
+<script type="text/javascript">
+<!--
+$(function(){
+	<@shiro.hasPermission name="${PER_UPDATE}">
+	//init
+	${dg}_init = function(){
+		$.messager.confirm("确认","您是否确认初始化菜单数据?",function(r){
+			if(!r)return;
+			$.messager.progress();
+			$.ajax({
+				url:"<@s.url '/admin/security/menu/init'/>",type:"POST",dataType:"json",
+				error:function(e){$.messager.progress("close"); <@error_dialog "e"/> },
+				success:function(data,textStatus){
+					$.messager.progress("close");
+					if(data.success){ 
+						$("#${dg}").treegrid("load");
+						$("#${dg}").treegrid("unselectAll");
+					}else{ 
+						$.messager.show({title:"提示", msg:data.msg }); 
+					}
+				}});
+		});
+	};
+	</@shiro.hasPermission>
+	<@shiro.hasPermission name='${PER_DELETE}'>
+	//remove
+	${dg}_remove = function(){
+		var rows = $("#${dg}").treegrid("getChecked");
+		if(rows && rows.length > 0){
+			$.messager.confirm("确认","您是否确认删除选中的数据?",function(r){
+				if(!r)return;
+				$.messager.progress();
+				var ids = [];
+				for(var i = 0; i < rows.length; i++){ ids.push(rows[i].id); }
+				$.ajax({
+					url:"<@s.url '/admin/security/menu/delete'/>",type:"POST",data:JSON.stringify(ids),dataType:"json",contentType:"application/json;charset=UTF-8",
+					error:function(e){$.messager.progress("close");<@error_dialog "e"/> },
+					success:function(data,textStatus){
+						$.messager.progress("close");
+						if(data.success){ 
+							$("#${dg}").treegrid("load");
+							$("#${dg}").treegrid("unselectAll");
+						}else{ 
+							$.messager.show({ title:"提示", msg:data.msg }); 
+						}
+				}});
+			});
+		} else{ $.messager.alert('提示','未选中须删除的数据！'); }
+	};
+	</@shiro.hasPermission>
+});
+//-->
+</script>
+<table id="${dg}" class="easyui-treegrid" data-options="url:'<@s.url '/admin/security/menu/datagrid'/>',fit:true,fitColumns:true,rownumbers:true,border:true,striped:true,singleSelect:false,animate:true,
+		idField:'id',treeField:'name',toolbar:'#${dg}_toolbar',onLoadError:function(e){<@error_dialog 'e'/> }">
+	<thead>
+		<tr>
+			<th data-options="field:'children',checkbox:true"></th>
+			<th data-options="field:'name',halign:'center' " width="25">菜单名称</th>
+			<th data-options="field:'id',halign:'center' " width="20">菜单代码</th>
+			<th data-options="field:'icon',halign:'center' " width="15">菜单icon</th>
+			<th data-options="field:'uri',halign:'center' " width="25">菜单URI</th>
+			<th data-options="field:'orderNo',halign:'center',align:'right'" width="5">排序号</th>
+		</tr>
+	</thead>
+</table>
+<div id="${dg}_toolbar">
+	<@shiro.hasPermission name="${PER_UPDATE}">
+	<a href="#" class="easyui-linkbutton" onclick="${dg}_init()" data-options="iconCls:'icon-add',plain:true">初始化菜单数据</a>
+	</@shiro.hasPermission>
+	<span>|</span>
+	<@shiro.hasPermission name='${PER_DELETE}'>
+	<a href="#" class="easyui-linkbutton" onclick="${dg}_remove()" data-options="iconCls:'icon-remove',plain:true">删除</a>
+	</@shiro.hasPermission>
+	
+	<label style="margin-left:15px;"><input name="name"  class="easyui-textbox" data-options="prompt:'一级菜单名称',icons:[{iconCls:'icon-clear',handler:function(e){$(e.data.target).textbox('clear');}},
+		{iconCls:'icon-search',handler:function(e){$('#${dg}').treegrid('load',{'name':$(e.data.target).textbox('getValue')});}}]" style="width:398px;"/></label>
+</div>

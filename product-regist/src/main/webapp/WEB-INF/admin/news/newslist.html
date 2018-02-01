@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>发布管理</title>
+<!--<@cssJs /> -->
+
+	</head>
+	<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="发布管理"  second="公示信息"/> -->
+		<div class="duoxianbox">
+			<div class="topcheack" align="center">
+				<div class="getvalue" style="width:965px;">
+					<form id='newsForm' action="<@s.url '/admin/news/newslist'/>" method="post" enctype="multipart/form-data">
+					<input type="hidden" id="pagenumber" name="pagenumber"/>
+					<input type="hidden" id="status" name="status"/>
+					<input type="hidden" id="checkAll" name="checkAll"/>
+					<div class="float_left" style="margin-top:15px;width:1100px;">
+						<#if (checkAll="1")><label><input type="checkbox" name="btnCheckAll" id="btnCheckAll" checked="checked"/>全部</label>
+						</#if>
+						<#if (checkAll ="0")><label><input type="checkbox" name="btnCheckAll" id="btnCheckAll"/>全部</label>
+						</#if>
+						<label><input type="checkbox" name="state" id="state1" value="1"/>产品注册通知</label>
+						<label><input type="checkbox" name="state" id="state2" value="2"/>产品注销通知</label>
+						<label><input type="checkbox" name="state" id="state3" value="3"/>产品问题通知</label>
+						<label><input type="checkbox" name="state" id="state5" value="5"/>注册平台简报</label>
+						<label><input type="checkbox" name="state" id="state6" value="6"/>协会处理通报</label>
+						<label><input type="checkbox" name="state" id="state7" value="7"/>监督行政处理</label> 
+						<label><input type="checkbox" name="state" id="state8" value="8"/>政策法规</label>
+						<label><input type="checkbox" name="state" id="state9" value="9"/>相关新闻</label>  
+					</div>
+				    </form>
+				</div>
+			</div>
+			<div class="gongsicontent" align="center">
+				<div class="titlestyle"  style="width: 1100px">
+					<div class="lanmu">栏目</div>
+					<div class="contentgaiy">内容概要</div>
+					<div class="timestyle">时间</div>
+					<div class="caozuo width_200">操作</div>
+				</div>
+			</div>
+			<div style="width: 100%;" align="center">
+				<ul class="newsgonggaoulstyle newulli">
+				<#list newslist as news>
+					<li>
+						<div class="width_1100">
+							<div class="divstyle01">&nbsp;&nbsp;${news.title}</div>
+							<div class="divstyle02">&nbsp;&nbsp;${news.subtitle}</div>
+							<div class="divstyle03">&nbsp;&nbsp;${news.createTime}</div>
+							<div class="rightbtn" style="width: 200px;">
+								<button style="margin-top: 5px;" onclick="detailNews(${news.id})">查看详情</button>
+								<button style="margin-top: 5px;" onclick="deleteNews(${news.id})">删除</button>
+							</div>
+						</div>
+					</li>
+				</#list>
+				</ul>
+				<div style="width: 990px;height: 35px;line-height: 35px;">
+				<!-----------------------分页样式开始------------------------>
+					<div class="pager-plugin" id="pager"></div>
+				</div>
+				<div class="fisrt_bottom_xian"></div>
+				<#include "ufoot.html"/>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+		
+		function detailNews(newsId){
+			window.location.href="<@s.url '/admin/news/detail?newsId='/>"+newsId;
+		}
+		function deleteNews(newsId){
+			if(window.confirm('是否删除信息？')){
+				$.post("<@s.url '/admin/news/deletenews'/>",{newsId:newsId},function(data,status){
+					 if(status=='success'){
+		            	 alert("删除成功！");
+		            	 location.reload();
+		             }else{
+		            	 alert("删除失败！");
+		             }
+				});
+			 }else{
+                 return false;
+             }
+		}
+		
+		function getStateAndSubmit(){
+			var stateStr="";
+				$("[name=state]:checked").each(function(i){
+					if(i<$("[name=state]:checked").length-1){
+						stateStr+=$(this).val()+",";
+					}else{
+						stateStr+=$(this).val();
+					}
+				 });
+				if(stateStr!=null && stateStr!=""){
+					$("#status").val(stateStr);
+				}
+				$("#newsForm").submit();
+		}
+		//---------------------分页样式开始----------------------
+		
+			$(function(){
+				//给列表设置样式,行数为单数样式为#----.contentall_li
+				$(".newsgonggaoulstyle li:odd").css("background-color","#ccc");
+			// 全选
+	            $("#btnCheckAll").click(function () {
+	            	if($("#btnCheckAll").is(':checked')){
+	            		$("[name=state]:checkbox").attr("checked", true);
+	            		$("#checkAll").val(1);
+	            	}else{
+	                	$("[name=state]:checkbox").attr("checked", false);
+	                	$("#checkAll").val(0);
+	            	}
+	                getStateAndSubmit();
+	            });
+				
+				//选择的checkbox
+				$("[name=state]:checkbox").click(function(){
+					getStateAndSubmit();
+				});
+				
+				var status=${states}+"";
+				 if(status!=null&&status.length==1){
+					  $("[id = state"+status+"]:checkbox").attr("checked", true);
+				 } else{
+					for(var i=0;i<=status.length;i++){
+						$("[id = state"+status.charAt(i)+"]:checkbox").attr("checked", true);
+					} 
+				 }
+				 
+				//分页
+				total = ${total};
+				PageClick = function(pageclickednumber) {
+	       		$("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+	        	//跳转
+	            $("#pagenumber").val(pageclickednumber);
+	            getStateAndSubmit();
+	    		}
+	    		if(total > 0)
+				{
+		   			total = Math.floor(total%10==0?total/10:(total/10+1));
+		   			$("#pager").pager({ pagenumber:  ${page}, pagecount: total, buttonClickCallback: PageClick });
+				}
+	    
+			});
+			//---------------------分页样式结束----------------------
+		</script>
+	</body>
+</html>

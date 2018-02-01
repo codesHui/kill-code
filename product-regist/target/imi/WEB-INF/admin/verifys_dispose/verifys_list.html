@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "adminNav.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品查询</title>
+<!--<@cssJs /> -->
+	</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+	
+		<!-- <@adminnav title="核查处理"  second="核查处理"/> -->
+	
+		<form action="<@s.url '/admin/verifys/list'/>" method="post" id="submit_product_info">
+			
+				<div class="product_condition" align="center" style="margin-top: 40px;">
+					<div class="content">
+					<div class="float_left leftbox" style="margin-left: 25px;">
+						<div class="hangstyle margin_top_10">
+							<div class="float_left titlename" >产品类别：</div>
+							<div>
+							    <input type="hidden" id="productType" name="productType" value="${productInfo.productType}" />
+								<div id="category_all" class="float_left margin_top_15 margin_left_10 radio_normal"></div>
+								<span  style="margin-left: 5px;" class="float_left">全部</span>
+								<div id="category_pre"  class="float_left margin_top_15 margin_left_20 radio_normal"></div>
+								<span  style="margin-left: 5px;" class="float_left">主险</span>
+								<div id="category_add"  class="float_left margin_top_15 margin_left_20 radio_normal"></div>
+								<span  style="margin-left: 5px;" class="float_left">附加险</span>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">注册号：</div>
+							<div style="width: 300px;">
+								<input type="tel" name="productNO" value="${productInfo.productNO}"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">注册人：</div>
+							<div style="width: 300px;">
+								<input type="tel" name="offreason" value="${productInfo.offreason}"/>
+							</div>
+						</div>
+					</div>
+				<div class="float_left leftbox">
+						<div class="hangstyle margin_top_10">
+						<!-- <input type="hidden" id="status" name="status" value="${productInfo.status}" /> -->
+							<div class="float_left titlename" >状态：</div>
+							<div class="input_div"  style="width: 300px;">
+								<@dictSelect value="${productInfo.status}" type="VSTATUS" id="status" name="status" option="全部" headValue="0"/>
+							</div>
+							
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">产品名称：</div>
+							<div style="width: 300px;">
+								<input type="tel"  value="${productInfo.productName}" name="productName"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">险类：</div>
+							<div class="input_div"  style="width: 300px;">
+								<@dictSelect value="${productInfo.riskType}" type="RISK" id="riskType" name="riskType" option="全部" showSelect=true onChange="getRiskName(this.options[this.selectedIndex].value);"/>
+							</div>
+						</div>
+						<div class="hangstyle">
+							<div class="float_left titlename">险种：</div>
+							<div class="input_div" style="width: 300px;">
+								<@dictSelect value="${productInfo.riskName}" type="${productInfo.riskType}" id="riskName" name="riskName" option="全部" showSelect=true/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<input id="hquerypage" name="page" type="hidden" >
+				<div class="bottomdiv">
+					<button onclick="select();">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+				</div>
+			</div>
+		</form>
+		<div class="product_content" align="center">
+			<div class="toptitle">
+				<div class="contentname">
+				<div>序号</div>
+				<div>产品类别</div>
+				<div>注册号</div>
+				<div>险类</div>
+				<div>险种</div>
+				<div>注册人</div>
+				<div>产品名称</div>
+				<div>当前状态</div>
+				<div>处理时间</div>
+				<div>查询详情</div>
+			</div>
+			</div>
+			<div class="content_all">
+				<ul class="contentall_li">
+				<#if productInfo.vList??> 
+					<#list productInfo.vList as v>
+						<li>
+							<div class="lidiv">
+								<div>&nbsp;&nbsp;${v.id}</div>
+								<div>&nbsp;&nbsp;<#if (v.product.productType="1")>主险</#if><#if (v.product.productType ="2")>附加险</#if></div>
+								<div>&nbsp;&nbsp;${v.product.productNO}</div>
+								<div>&nbsp;&nbsp;<@dictDisplay value="${v.product.riskType}" type="RISK" /></div>
+								<div>&nbsp;&nbsp;<@dictDisplay value="${v.product.riskName}" type="${v.product.riskType}" /></div>
+								<div title="${v.product.user.user.name}"><@textCut value="${v.product.user.registeredPerson}" len=12 append="..." /></div>
+								<div title="${p.product.productName}"><@textCut value="${v.product.productName}" len=12 append="..." /></div>
+								<div>&nbsp;&nbsp;<@dictDisplay value="${v.status}" type="VSTATUS" /></div>
+								<div>&nbsp;&nbsp;<#if v.modifiedTime??>${v.modifiedTime?string("yyyy-MM-dd HH:mm:ss")}</#if></div>
+								<div>
+									<button type="button" onclick="detail('${v.product.productNO}','${v.id}');">查看详情</button>
+								</div>
+						   </div>
+					   </li>
+					</#list>
+   		 		</#if> 
+				</ul>
+				</div>
+				
+				
+			<div class="divbottom">
+			<div class="pager-plugin" id="pager"></div>
+			</div>	
+		</div>
+		<div class="fisrt_bottom_xian"></div>
+<!--<#include "ufoot.html"/><!--尾部结束-->
+		<script type="text/javascript">
+		
+			$(function(){
+				//单选按钮初始化
+				var productType = $("#productType").val();
+				var status = $("#status").val();     
+				if(productType == "" || productType == 0){
+					$("#category_all").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(productType == 1){
+					$("#category_pre").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(productType == 2){
+					$("#category_add").removeClass("radio_normal").addClass("radio_checked");
+				}
+				/* if(status == "" || status == 0){
+					$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_all").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(status == 1){
+					$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_normal").removeClass("radio_normal").addClass("radio_checked");
+				}
+				if(status == 2){
+					$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+					$("#status_cancle").removeClass("radio_normal").addClass("radio_checked");
+				} */
+				if(status == 1){
+					$(".typevalue").html("待核查");
+					$("#optionstyle").css("display","none");
+				}else if(status == 2){
+					$(".typevalue").html("待举证");
+					$("#optionstyle").css("display","none");
+				}else if(status == 3){
+					$(".typevalue").html("待定论");
+					$("#optionstyle").css("display","none");
+				}else if(status == 4){
+					$(".typevalue").html("待复议");
+					$("#optionstyle").css("display","none");
+				}else if(status == 0){
+					$(".typevalue").html("无需核查");
+					$("#optionstyle").css("display","none");
+				}else{
+					$(".typevalue").html("-请选择-");
+					$("#optionstyle").css("display","none");
+				}
+				//单选按钮事件
+				$("#category_all").click(function(){
+					if($("#category_pre").hasClass("radio_checked")||$("#category_add").hasClass("radio_checked")){
+						$("#category_add").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_pre").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(0);
+					}
+				});
+				$("#category_pre").click(function(){
+					if($("#category_add").hasClass("radio_checked")||$("#category_all").hasClass("radio_checked")){
+						$("#category_add").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_pre").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(1);
+					}
+				});
+				$("#category_add").click(function(){
+					if($("#category_pre").hasClass("radio_checked")||$("#category_all").hasClass("radio_checked")){
+						$("#category_pre").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#category_add").removeClass("radio_normal").addClass("radio_checked");
+						$("#productType").val(2);
+					}
+				});
+				$("#status_all").click(function(){
+					if($("#status_cancle").hasClass("radio_checked")||$("#status_normal").hasClass("radio_checked")){
+						$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(0);
+					}
+				});
+				$("#status_normal").click(function(){
+					if($("#status_cancle").hasClass("radio_checked")||$("#status_all").hasClass("radio_checked")){
+						$("#status_cancle").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_normal").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(1);
+					}
+				});
+				$("#status_cancle").click(function(){
+					if($("#status_normal").hasClass("radio_checked")||$("#status_all").hasClass("radio_checked")){
+						$("#status_normal").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_all").removeClass("radio_checked").addClass("radio_normal");
+						$("#status_cancle").removeClass("radio_normal").addClass("radio_checked");
+						$("#status").val(2);
+					}
+				});
+				
+				
+				//给列表设置样式,行数为单数样式为#----.contentall_li
+				$(".contentall_li li:even").css("background-color","#E6E3E3");
+				$(".contentall_li li:odd").css("background-color","#F2F2F2");
+				$(".selectstyle ul li:not(.optionselect)").hover(
+					function(){
+						$(this).css("background-color","#69AAEC");
+						$(this).css("color","#fff");
+					},
+					function(){
+						$(this).css("background-color","#fff");
+						$(this).css("color","#333");
+					}
+				);
+				
+				$("#xianlei").click(function(){
+					$("#optionstyle").css("display","block");
+				});
+				/* $("#product_status").click(function(event){
+					$("#optionstyle").css("display","block");
+					event.stopPropagation();
+				}); */
+				$(".selectstyle ul li").click(function(){
+					$("#status").val($(this).val());
+					$(".typevalue").html($(this).text());
+					$("#optionstyle").css("display","none");
+				});
+				
+			    
+			});
+			
+			//分页
+			PageClick = function(pageclickednumber) {
+		        $("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+		        //跳转
+		       // location = '?page='+pageclickednumber;
+		        $("#hquerypage").val(pageclickednumber);
+		        $("#submit_product_info").submit();
+		    }
+			var total = ${productInfo.total};
+		    if(total > 0)
+			{
+			   total = Math.floor(total%10==0?total/10:(total/10+1));
+			   $("#pager").pager({ pagenumber: ${productInfo.page?default(1)}, pagecount: total, buttonClickCallback: PageClick });
+			}
+		    
+
+			//筛选条件
+			function select(){
+				$("#submit_product_info").submit();
+			}
+			//查看详情
+			function detail(productNO,v_id){
+				 window.location.href="<@s.url '/admin/verifys/detail?productNO='/>"+productNO+"&v_id="+v_id;
+			}
+			
+			
+			//险种二级联动
+			  function getRiskName(key){
+				$("#riskName").html("");
+				$("#riskName").append("<option value=''>全部</option>");
+				  $.ajax({
+				        type : "post",
+				        url : "<@s.url '/front/product/riskName'/>",
+				        data : {
+				        	key : $("#riskType").val()
+				        },
+				        dataType : "json",
+				        success : function(data) {
+				        	if(data.success)
+							{
+					           for(var i =0;i<data.data.length;i++){
+					        	   var dic=data.data[i].split("|");
+					        	   $("#riskName").append("<option value='" + dic[0] + "'>"  + dic[1] + "</option>"); 
+					          } 
+							}
+				        }
+				   });  
+			  }
+			
+			
+			
+		</script>
+	</body>
+</html>

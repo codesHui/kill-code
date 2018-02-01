@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<#include "comm.ftl" /><#include "adminNav.ftl"/>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>关键词审核</title>
+    <!-- <@cssJs /> -->
+    <style type="text/css">
+        *+html .leftbox .titlename{margin-right:-3px}/* IE7 */
+        *+html  .input_div{ /* background-color: olive; */padding: 0px;text-align: left;}/* IE7 */
+        .yijinav  a{
+            text-decoration: none;color: #3F3F3F;
+        }
+        .nav_off{
+            display: none;
+        }
+
+        .acitve {
+            background-color: rgb(230, 227, 227);;
+            color: #3C9CD3;
+        }
+    </style>
+</head>
+
+<body>
+<!--<@logonTop user="${userNickName}" />-->
+<!-- <@adminnav title="测试" /> -->
+
+<form action="<@s.url'/admin/test'/>" method="post" id="submit_product_info">
+    <input id="hquerypage" name="page" type="hidden" >
+</form>
+<div class="product_content" align="center">
+    <div class="toptitle">
+        <div class="contentname">
+            <div>
+                序号
+            </div>
+            <div>
+                注册号
+            </div>
+            <div>
+                产品名称
+            </div>
+            <div>
+                注册人
+            </div>
+            <div>
+                类别
+            </div>
+            <div>
+                险类
+            </div>
+            <div>
+                险种
+            </div>
+            <div>
+                注册时间
+            </div>
+            <div>
+                状态
+            </div>
+            <div>
+                附加险
+            </div>
+            <div>
+                主险
+            </div>
+            <div style="width: 110px">
+                审&nbsp;&nbsp;&nbsp;&nbsp;核
+            </div>
+        </div>
+    </div>
+
+    <div class="content_all">
+        <ul class="contentall_li">
+            <#if auditList??>
+            <#list auditList as audit>
+            <li>
+                <div class="lidiv">
+                    <div>
+                        &nbsp;&nbsp;${audit_index +productInfo.currentRowNo?default(1)}
+                    </div>
+                    <div>
+                        ${audit.productNO}
+                    </div>
+                    <div title="${product.productName}">
+                        <@textCut value="${audit.productName}" len=10 append="..." />
+                    </div>
+                    <div title="${product.registPerson}">
+                        <@textCut value="${audit.registPerson}" len=10 append="..." />
+                    </div>
+                    <div>
+                        &nbsp;&nbsp;<#if (audit.productType ="1")>主险</#if><#if (audit.productType ="2")>附加险</#if><#if (audit.productType ="3")>其他</#if>
+                    </div>
+                    <div >
+                        &nbsp;&nbsp;<@dictDisplay value="${audit.riskType}" type="RISK" />
+                    </div>
+                    <div>
+                        &nbsp;&nbsp;<@dictDisplay value="${audit.riskName}" type="${audit.riskType}" />
+                    </div>
+                    <div >
+                        &nbsp;&nbsp;${audit.registTime?string("yyyy-MM-dd HH:mm:ss")}
+                    </div>
+                    <div >
+                        &nbsp;&nbsp;<#if (audit.status ="1")>正常</#if><#if (audit.status ="4")>注销</#if><#if (audit.status ="3")>待核查</#if>
+                  </div>
+                    <div>
+                        <#if (audit.mainSafe!=0&&audit.mainSafe!=null)>
+                        &nbsp;&nbsp;${audit.addSafe}
+                    </#if>
+                    </div>
+                    <div>
+                        <#if (audit.mainSafe!=0&&audit.mainSafe!=null)>
+                        &nbsp;&nbsp;${audit.mainSafe}
+                    </#if>
+                    </div>
+                    <div >
+                        <button type="button" onclick="detail('${audit.productNO}');" style="width: 50px">通过</button>
+                        <button type="button" onclick="detail2('${audit.productNO}');" style="width: 50px">不通过</button>
+                    </div>
+                </div>
+                </li>
+                </#list>
+                </#if>
+                </ul>
+                </div>
+                <div class="divbottom">
+                    <div class="pager-plugin" id="pager"></div>
+
+                </div>
+                </div>
+
+
+<div class="fisrt_bottom_xian"></div>
+<!--<#include "ufoot.html"/><!--尾部结束-->
+<script type="text/javascript">
+
+    $(function(){
+        //给列表设置样式,行数为单数样式为#----.contentall_li
+        $(".contentall_li li:even").css("background-color","#E6E3E3");
+        $(".contentall_li li:odd").css("background-color","#F2F2F2");
+
+
+    });
+
+    //分页
+    PageClick = function(pageclickednumber) {
+        $("#pager").pager({ pagenumber: pageclickednumber, pagecount: total, buttonClickCallback: PageClick });
+        //跳转
+        // location = '?page='+pageclickednumber;
+        $("#hquerypage").val(pageclickednumber);
+        select();
+    }
+    var total = ${total};
+    if(total > 0)
+    {
+        total = Math.floor(total%10==0?total/10:(total/10+1));
+        $("#pager").pager({ pagenumber: ${auditInfo.page?default(1)}, pagecount: total, buttonClickCallback: PageClick });
+    }
+
+    function select(){
+        var path = "<@s.url'/admin/test'/>" ;
+        $('#submit_product_info').attr("action", path).submit();
+    }
+
+    //查看详情
+    function detail(productNO){
+        window.location.href="<@s.url '/admin/test_cancel_detail?review=1&productNO='/>"+productNO;
+    }
+
+    //查看详情
+    function detail2(productNO){
+        window.location.href="<@s.url '/admin/test_cancel_detail?review=2&productNO='/>"+productNO;
+    }
+
+</script>
+</body>
+</html>

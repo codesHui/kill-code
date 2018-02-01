@@ -1,0 +1,26 @@
+<#--角色编辑-->
+<#include "/comm.ftl"/>
+<#assign module="admin_security_role"/>
+<#assign form="${module}_edit_form"/>
+<form id="${form}" method="POST">
+	<div style="float:left;margin-top:12px;width:100%;">
+		<label style="width:75px;">角色名称：</label>
+		<input name="name" class="easyui-textbox" data-options="required:true,missingMessage:'请输入角色名称！',icons:[{iconCls:'icon-clear',handler:function(e){$(e.data.target).textbox('clear');}}]" style="width:268px;"/>
+		<input type="hidden" name="id"/>
+	</div>
+	<div style="float:left;margin-top:10px;width:100%;">
+		<label style="width:75px;margin-top:3px;">状态：</label>
+		<#list statusMap?keys as key>
+		<label style="padding-top:0px;<#if (key_index > 0)>margin-left:2px;</#if>">
+<!-- 		
+		<input type="radio" name="status" value="${key}" <#if (key_index == 0)> checked="checked" </#if> />
+		
+		 -->
+		${statusMap[key]} </label>
+		</#list>
+	</div>
+	<div style="float:left;margin-top:10px;width:100%;">
+		<label style="width:75px;">描述：</label>
+		<input name="description" class="easyui-textbox" data-options="multiline:true" style="width:268px;height:120px;"/>
+	</div>
+</form>

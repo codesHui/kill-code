@@ -1,0 +1,243 @@
+@charset "utf-8";
+/* CSS Document */
+.time,.cont-l .box .list li em,.cont-r .xz-daan,.cont-r .xz-daan .list li span,.on,.off,.choose,.defen,.xz-daan .dui,.xz-daan .cuo,.daanbox .f-r em,.pic-bg,.zan,.huifu,.zhankai-bg,.moni-list .title em,.sift .siftbox .f-r .list li i,.jia,.jian,.moni-list .title i,.moni-list .title ol{ background:url(image/style.png) no-repeat}
+/*内容段*/
+.cont-l{ width:150px; height:auto; margin-right:20px}
+.cont-l .box{ width:148px; height:auto;-webkit-border-top-left-radius:5px;-webkit-border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;border-bottom:#b3b3b3 solid 1px;border-left:#e8e8e8 solid 1px;border-right:#d4d4d4 solid 1px;border-top:#e8e8e8 solid 1px; background:#fff; margin-bottom:20px; padding:1px 0}
+.cont-l .box .time{ background-position:36px -73px; padding-top:77px; margin:0px auto; color:#666; font: bold 18px/20px "黑体"; margin-top:14px}
+.cont-l .box .hui-botton,.cont-l .box .jiaojuan-botton{ margin-left:11.3px; _margin-left:6px; float:left; margin-top:12px;font:16px/38px "宋体"}
+.cont-l .box .hui-botton a:link,.cont-l .box .hui-botton a:visited,.cont-l .box .hui-botton a:active{width:123px; float:left;color:#555; height:38px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; border:#e8e8e8 solid 1px; background:#fafafa}
+.cont-l .box .hui-botton a:hover{width:123px; color:#fff; height:38px;-moz-border-radius:3px; float:left; -webkit-border-radius:3px; border-radius:3px; border:#f60 solid 1px; background:#f60}
+.cont-l .box .jiaojuan-botton a:link,.cont-l .box .jiaojuan-botton a:visited,.cont-l .box .jiaojuan-botton a:active{width:123px; float:left;color:#fff; height:38px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; border:#f30f4a solid 1px; background:#f30f4a}
+.cont-l .box .jiaojuan-botton a:hover{width:123px; color:#fff; height:38px;-moz-border-radius:3px; float:left; -webkit-border-radius:3px; border-radius:3px; border:#f60 solid 1px; background:#f60}
+.cont-l .box .list li{ border-bottom:#d4d4d4 solid 1px;text-align:left; font:16px/50px "宋体";width:100%; height:50px; min-height:50px; height:auto!important; float:left}
+.cont-l .box .list li a:link,.cont-l .box .list li a:visited,.cont-l .box .list li a:active{ width:100%; height:50px; min-height:50px; height:auto!important; float:left; color:#666}
+.cont-l .box .list li a:hover{ width:100%; height:50px; min-height:50px; height:auto!important; float:left; background:#f2f2f2; color:#252525}
+.cont-l .box .list li em{float:left; width:40px; height:50px; margin-left:19px; padding-right:3px; display:inline}
+.cont-l .box .list li em.shang{ background-position:-230px 15px}
+.cont-l .box .list li em.xia{ background-position:-230px -20px}
+.cont-l .box .list li em.back{ background-position:-230px -61px}
+.cont-l .box .list li em.dan-liang{ background-position:-230px -105px}
+.cont-l .box .list li em.kandaan{ background-position:-185px -58px}
+.cont-l .box .list li em.jisuanqi{ background-position:-185px -100px}
+.cont-l .box .list li em.kancuo-a{ background-position:-295px -44px}
+.cont-l .box .list li em.kancuo-h{ background-position:-295px -84px}
+/*左边导航结束，右边内容快开始*/
+.cont-r{ width:830px}
+.cont-r .box{ width:828px; height:auto;-webkit-border-top-left-radius:5px;-webkit-border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;border-bottom:#b3b3b3 solid 1px;border-left:#e8e8e8 solid 1px;border-right:#d4d4d4 solid 1px;border-top:#e8e8e8 solid 1px; background:#fff; margin-bottom:20px}
+/*题目名称*/
+.cont-r .daxiao{ float:right; padding-right:10px}
+.cont-r .daxiao .list li{ float:right; font:14px/24px "宋体"; margin:10px 10px 10px 0;cursor: pointer;}
+.cont-r .daxiao .list .out{width:auto; height:auto; float:right; padding:0px 6px; background:#f2f2f2; border:#d4d4d4 solid 1px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
+.cont-r .daxiao .list .over,.cont-r .daxiao .list .bg{width:auto; height:auto; float:right; padding:0px 6px; background:#64ad75; border:#3f9a54 solid 1px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
+.cont-r .daxiao .list .bg a,.cont-r .daxiao .list .over a{ color:#fff}
+.cont-r .name{width:96%; height:auto; line-height:75px; padding-top:10px; margin:0 auto; border-bottom:#ccc dotted 1px; overflow:hidden}
+.cont-r .name h1{font:26px/75px "微软雅黑"; color:#000}
+.cont-r .shuoming p{width:96%; height:auto; line-height:20px; padding:5px 0; color:#666; margin:0 auto; text-align:left}
+.cont-r .tixing{ width:100%; background:#f5f4f9; height:auto;-webkit-border-top-left-radius:0px;-webkit-border-top-right-radius:0px;-webkit-border-bottom-right-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:0px;-moz-border-radius-topright:0px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:0px;border-top-right-radius:0px;border-bottom-right-radius:5px;border-bottom-left-radius:5px}
+.cont-r .tixing .list li,.record .list li{ float:left; line-height:30px; font-size:14px}
+.cont-r .tixing .list li a:link,.record .list li a:link,.cont-r .tixing .list li a:visited,.record .list li a:visited,.cont-r .tixing .list li a:active,.record .list li a:active{ color:#252525; padding:0px 15px; margin:18px 0px 18px 18px; height:30px; float:left}
+.cont-r .tixing .list li a:hover,.record .list li a:hover{ color:#fff; background:#696969; padding:0px 15px; margin:18px 0px 18px 18px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;height:30px; float:left}
+.cont-r .tixing .list li a.bg,.record .list li a.bg{ color:#fff; background:#696969; padding:0px 15px; margin:18px 0px 18px 18px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;height:30px; float:left; cursor:pointer}
+/*题型分类*/
+.cont-r .tx-box{width:800px; height:auto; color:#f60; background:#fffee9; padding:10px 14px; border:#f5c795 solid 1px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; line-height:24px; text-align:left; margin-bottom:20px}
+/*题目名称*/
+.cont-r .timu{ width:100%; background:#f5f4f9; height:auto;-webkit-border-top-left-radius:5px;-webkit-border-top-right-radius:5px;-webkit-border-bottom-right-radius:0px;-webkit-border-bottom-left-radius:0px;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:0px;-moz-border-radius-bottomleft:0px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:0px;border-bottom-left-radius:0px}
+.cont-r .timu i{ float:left; width:70px; color:#f60; font:30px/64px Arial}
+.cont-r .timu em{ width:750px; line-height:30px; color:#000; text-align:left; padding:15px 0; float:left}
+.cont-r .timu em span{ width:auto; color:#f60; float:left; padding-right:8px; line-height:30px}
+.cont-r .timu em span a:link,.cont-r .timu em span a:visited,.cont-r .timu em span a:active{color:#f60}
+.cont-r .timu em span a:hover{ color:#cc0000}
+.fenxiti table,.cont-r .timu table{ background-color:#dedede; text-align:center; margin:5px;}
+.fenxiti td,.cont-r .timu td{ background-color:#FFF}
+/*选择题答案*/
+.cont-r .xz-daan{ width:750px; background-position:240px -180px; height:auto !important; min-height:1px; height:1px; padding:20px 0px 20px 39px; position:relative}
+.cont-r .xz-daan .dui{ background-position:-350px 0; width:73px; height:52px; position:absolute; top:-25px; left:-10px}
+.cont-r .xz-daan .cuo{ background-position:-350px -60px; width:73px; height:52px; position:absolute; top:-20px; left:-15px}
+.cont-r .xz-daan .list li{ padding:10px 0px; height:30px; float:left; min-height:30px; height:auto !important cursor:pointer; text-align:left}
+.cont-r .xz-daan .list li i{ width:60px; text-align:center; float:left; font:20px/30px Arial; color:#777}
+.cont-r .xz-daan .list li em{ width:680px; float:left; line-height:30px}
+.cont-r .xz-daan .list li span{ width:60px; height:35px; text-align:center; float:left; font:20px/30px Arial; color:#777; position:relative; overflow:hidden; background-position:-290px -4px}
+.cont-r .xz-daan .list .out{width:100%; height:30px; float:left; min-height:30px; height:auto !important}
+.cont-r .xz-daan .list .over{width:100%; height:30px; float:left; min-height:30px; height:auto !important;-moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; background:#f2f2f2}
+.cont-r .xz-daan .abcd li{ width:67px; height:auto !important; height:37px; min-height:37px; padding-left:44px; margin:20px 20px 0px 0px; float:left; text-align:left;font:20px/37px "Arial","宋体"; color:#777; cursor:pointer}
+.cont-r .xz-daan .abcd .on{ background-position: -430px -30px; color:#fff;width:67px;height:37px; float:left}
+.cont-r .xz-daan .abcd .off{ background-position: -430px -70px;width:67px;height:37px; float:left}
+.cont-r .xz-daan .abcd .choose{ background-position: -430px -30px; color:#fff;width:67px;height:37px; float:left}
+.cont-r .fenxiti{width:800px; height:auto; background:#fff; padding:10px 14px; border:#d4d4d4 solid 1px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; line-height:24px; text-align:left; margin-bottom:20px}
+.cont-r .fenxiti i{ width:20px; padding:3px 5px; text-align:center; background:#f50;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; margin-right:10px; color:#fff; float:left; line-height:20px}
+.cont-r .fenxiti em{ width:755px; float:left}
+.cont-r .xz-daan .wenben{ width:98%; height:130px; float:left; text-align:left; padding:1%; line-height:20px;border:#d4d4d4 solid 1px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
+/*答题卡*/
+.datika{ width:100%;z-index:100}
+.datika .ka{width:auto!important; width:160px; min-width:160px; height:auto; margin-left:325px; _margin-left:155px; padding:5px 10px 0px 10px; line-height:24px; color:#fff; background:#f50;-webkit-border-top-left-radius:5px;-webkit-border-top-right-radius:5px;-webkit-border-bottom-right-radius:0px;-webkit-border-bottom-left-radius:0px;-moz-border-radius-topleft:0px;-moz-border-radius-topright:0px;-moz-border-radius-bottomright:0px;-moz-border-radius-bottomleft:0px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:0px;border-bottom-left-radius:0px; cursor:pointer}
+.datika .ka-ge{width:100%; height:5px;background:#f50;-webkit-border-top-left-radius:0px;-webkit-border-top-right-radius:0px;-webkit-border-bottom-right-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:0px;-moz-border-radius-topright:0px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:0px;border-bottom-left-radius:0px}
+.datika .ka-box{ background:#efefef; width:790px; padding:20px 20px 10px 20px; height:auto}
+.datika .ka-box .five{ width:auto; height:auto; padding-left:42px; _padding-left:37px; padding-bottom:10px; white-space:nowrap}
+.datika .ka-box .list li{float:left; margin-right:10px; font: bold 14px/24px "宋体"}
+.datika .ka-box .list li a:link,.datika .ka-box .list li a:visited,.datika .ka-box .list li a:active{width:30px; height:26px; float:left;background:#fff; border:#d4d4d4 solid 1px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; color:#000}
+.datika .ka-box .list li a:hover{width:30px; height:26px; float:left; background:#f60; border:#f60 solid 1px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; color:#fff}
+.daanbox .f-l .dui,.datika .dui{background:#4ca50e!important}
+.daanbox .f-l .cuo,.datika .cuo{background:#f00!important}
+.daanbox .f-l .shao,.datika .shao{background:#f90!important}
+.daanbox .f-l .yida,.datika .yida{background:#ccc!important}
+/*正确答案*/
+.defen{font: 56px/56px "Georgia";font-style:italic;color: #f00; height:66px; letter-spacing:3px; background-position:-430px 54px}
+.dangqian{ background-color:#f30f4a; width:100%; float:left; margin-top:10px; height:40px; font-size:16px; font-weight:bold; line-height:40px; color:#fff}
+.daanbox{ width:780px; padding:0px 24px 20px 24px; height:auto; border-top:#ccc dotted 1px; position:relative}
+.daanbox .zhankai-bg{ background-position:-220px -160px; width:17px; height:9px; float:right; position:absolute; right:60px; top:62px}
+.daanbox .f-l{ padding-top:20px; padding-right:50px}
+.daanbox .f-l i{ float:left;color:#999; font:14px/30px "微软雅黑"}
+.daanbox .f-l em{-moz-border-radius:3px; -webkit-border-radius:3px;float:left; padding:0px 10px;width:auto;height:30px;font:20px/30px "Arial","宋体"; border-radius:3px; color:#fff}
+.daanbox .f-l .dui{background:#4ca50e}
+.daanbox .f-l .cuo{background:#f00}
+.daanbox .f-l .weida{background:#efefef; color:#555!important; line-height:30px}
+.daanbox .f-r{ padding-top:20px; padding-left:35px}
+.daanbox .f-r i{ float:left;line-height:30px}
+.daanbox .f-r em{width:20px; height:25px; float:left; padding-right:5px}
+.daanbox .f-r em.jiucuo{ background-position:-530px -156px}
+.daanbox .f-r em.shoucang{ background-position:-530px -110px}
+.daanbox .f-r em.shoucang-h{ background-position:-500px -110px}
+.daanbox .f-r em.jiexi{ background-position:-460px -110px}
+.daanbox .f-r em.jiexi-h{ background-position:-425px -110px}
+/*解析*/
+.jiexi-box{ width:780px; padding:24px; height:auto; border-top:#d9d9d9 solid 1px; background:#f2f2f2;-webkit-border-top-left-radius:0px;-webkit-border-top-right-radius:0px;-webkit-border-bottom-right-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-radius-topleft:0px;-moz-border-radius-topright:0px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:0px;border-top-right-radius:0px;border-bottom-right-radius:5px;border-bottom-left-radius:5px}
+/*参考资料*/
+.jiexi-box .cankaobox{width:748px; padding:15px;border:#e4e4e4 solid 1px; background:#fff; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; height:auto!important; height:50px; min-width:50px; text-align:left; font:14px/24px "宋体"; text-indent:30px}
+.jiexi-box .cankaobox i{ width:100%; height:30px; float:left; font: bold 16px/30px "微软雅黑"; color:#f50; border-bottom:#dfdfdf dotted 1px; margin-bottom:10px; text-indent:0px}
+/*笔记——交流*/
+.jiexi-box .bookbox{width:748px; padding:15px;border:#e4e4e4 solid 1px; background:#fafafa; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; height:auto!important; height:50px; min-width:50px; text-align:left; font:14px/24px "宋体"}
+.jiexi-box .bookbox .book-l{ color:#999}
+.jiexi-box .bookbox .book-l span{ float:left; font-weight:bold; color:#000}
+.jiexi-box .bookbox .mybook,.jiexi-box .bookbox .sybook{ padding-left:40px}
+.mybook a:link,.mybook a:visited,.mybook a:active{ color:#787878}
+.mybook a:hover{ color:#252525}
+.sybook a:link,.sybook a:visited,.sybook a:active{ color:#f60}
+.sybook a:hover{ color:#cc0000}
+.notebook{width:718px; float:left; padding:15px;border:#e4e4e4 solid 1px; background:#fff; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; height:auto!important; height:30px; min-width:30px; text-align:left;  line-height:24px; margin:20px 0 10px 0}
+.sure{font:16px/30px "黑体"}
+.sure a:link,.sure a:visited,.sure a:active{ background:#ff8400; float:right; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; color:#fff; width:auto; height:30px; padding:2px 25px}
+.sure a:hover{background:#ff6000; float:right; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; color:#fff; width:auto; height:30px; padding:2px 25px}
+.textbook{width:748px; height:auto!important; height:80px; min-height:80px; padding:5px 15px; border:#e4e4e4 solid 1px; border-top:none; background:#fff}
+.txt{ width:100%;height:auto!important; height:80px; min-height:80px; float:left; position:relative}
+.pic-bg{ width:70px; height:70px; float:left; background-position:-100px -70px; position:absolute; _left:-3px; *left:-3px;  z-index:99}
+.pic-bg a{width:58px; height:58px; float:left; margin:4px 0 0 6px}
+.pic{ width:70px; height:70px; float:left; position:absolute; _left:-3px; *left:-3px; z-index:9}
+.f-right{ width:670px; height:auto; float:right}
+.hf-right{ width:590px; height:auto; float:right}
+.vipname{ width:100%; height:35px; text-align:left; font:14px/35px "宋体"}
+.vipname span{ color:#999; padding-left:20px;font:12px/35px "宋体"}
+.vipname a:link,.vipname a:visited,.vipname a:active{ color:#379BE9}
+.vipname a:hover{ color:#ff6000}
+.pinglun{ width:100%; height:auto; padding:5px 0; text-align:left; font:14px/24px "宋体"}
+.zan a:link,.zan a:visited,.zan a:active{ padding-left:22px; float:right; font:12px/24px "宋体"; width:auto; background-position:-300px -132px; color:#777}
+.zan a:hover{ float:right; background-position:-301px -159px; color:#252525; font:12px/24px "宋体"; width:auto}
+.huifu a:link,.huifu a:visited,.huifu a:active{ margin-left:30px; padding-left:24px; float:right; font:12px/24px "宋体"; width:auto; background-position:-425px -133px; color:#777}
+.huifu a:hover{ float:right;  background-position:-426px -158px; color:#252525; font:12px/24px "宋体"; width:auto}
+.huifubook{width:640px; float:left; padding:10px 15px;border:#e4e4e4 solid 1px; background:#fff; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; height:auto!important; height:30px; min-width:30px; text-align:left; font:14px/24px "宋体"; margin:20px 0 10px 0}
+.sure{font:16px/30px "黑体"}
+.huifubox{ width:670px; border-top:#ccc dotted 1px; float:left}
+/*筛选*/
+.sift-box{ width:958px; padding:20px 20px 10px 20px}
+.sift{ width:100%; height:auto;}
+.sift .siftbox{ width:100%; height:auto; padding-bottom:10px}
+.sift .siftbox .f-l{ width:6%; height:auto; text-align:left; font-size:14px; line-height:26px; color:#999}
+.sift .siftbox .f-r{ width:94%; height:auto}
+.sift .siftbox .f-r .list li{ float:left; line-height:26px; margin-bottom:5px; font-size:14px; white-space:nowrap}
+.sift .siftbox .f-r .list li em{ float:left}
+.sift .siftbox .f-r .list li i{ width:7px; height:7px; float:left; margin-left:3px; margin-top:10px}
+.sift .siftbox .f-r .list li i.cheng{ background-position:0px 0px}
+.sift .siftbox .f-r .list li i.xia{ background-position:0px -31px}
+.sift .siftbox .f-r .list li i.shang{ background-position:0px -56px}
+.sift .siftbox .f-r .erji{ width:98%; margin-top:10px; padding:1%;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; background:#f9f9f9}
+.sift .siftbox .f-r .list li a:link,.sift .siftbox .f-r .list li a:visited,.sift .siftbox .f-r .list li a:active{ width:auto; color:#252525; padding:0px 8px; float:left}
+.sift .siftbox .f-r .list li a:hover{ width:auto; color:#fff; background:#f50; padding:0px 8px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; float:left}
+.sift .siftbox .f-r .list li.bg{ width:auto; color:#fff; padding:0px 8px;  margin-right:10px; background:#f50; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; float:left; cursor:pointer}
+.sift .siftbox .f-r .list li.bg a{color:#fff;}
+/*模拟试题列表页*/
+.moni-list li{ width:100%; height:84px; height:auto!important; min-height:84px; float:left; font-size:16px; border-top:#fff solid 1px; border-bottom:#e8e8e8 solid 1px; color:#777}
+.moni-list li.line{ line-height:84px !important;}
+.moni-out{background:#fff}
+.moni-over{background:#f9f9f9}
+.moni-over b{ line-height:84px; font-size:30px; color:#111}
+.moni-list li a:link,.moni-list li a:visited,.moni-list li a:active{ color:#333}
+.moni-list li a:hover{ color:#f00}
+.moni-list .title{width:100%; float:left; color:#252525; display:block; overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.moni-list .title dd{ font-size:16px; font-weight:bold}
+.moni-list .title em{ width:600px; margin-left:10px; margin-top:10px; padding-top:5px; padding-left:50px; float:left; text-align:left; font-family:"宋体"; background-position:-560px -20px}
+.moni-list .title em.title{ line-height:40px; width:100%; float:left}
+.moni-list .title em p{ line-height:40px; padding-right:30px; float:left; font-size:12px; color:#999}
+.moni-list .title span{ width:102px; height:44px; padding-top:20px; line-height:44px; float:left; font-weight:300; font-size:14px}
+.moni-list .title span .buy-botton{ width:110px; height:40px; padding-left:11px; float:left; line-height:40px}
+/*每日一练*/
+.moni-list .title i{ width:630px; height:60px; padding-top:24px; padding-left:30px; float:left; text-align:left; font-family:"宋体"; background-position:-560px -90px}
+.moni-list .title i.title{ line-height:40px; width:100%; float:left}
+.moni-list .title i p{ line-height:40px; padding-right:30px; float:left; font-size:12px; color:#999}
+
+.week li{ float:left; line-height:20px; font-size:14px; margin-right:3px;}
+.week li a:link,.week li a:visited,.week li a:active{ width:140px; padding-top:7px; height:50px; float:left; border-top:#b1b1b1 solid 3px; background:#f2f2f2}
+.week li a:hover{ width:140px; padding-top:7px; height:50px; float:left; border-top:#f30f4a solid 3px; background:#fafafa}
+.week li.bg{ width:140px; padding-top:7px; height:50px; float:left; color:#f30f4a; border-top:#f30f4a solid 3px}
+/*章节练习*/
+.chapter-list li{ width:100%; height:54px; float:left; border-right:#e8e8e8 solid 1px;border-left:#e8e8e8 solid 1px; font-size:16px; border-top:#fff solid 1px; border-bottom:#e8e8e8 solid 1px; color:#777; cursor:pointer}
+.chapter-top{background:#f9f9f9; font-weight:bold; overflow:hidden; color:#333 !important}
+.chapter-out{background:#fff}
+.chapter-over{background:#f9f9f9}
+.chapter-list li a:link,.chapter-list li a:visited,.chapter-list li a:active{ color:#333}
+.chapter-list li a:hover{ color:#f00}
+.chapter-list .title{width:100%; float:left; display:block; overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chapter-list .title em{ width:61%; line-height:54px; float:left; text-align:left; color:#252525; cursor:pointer; font-family:"宋体"}
+.kong{ margin-left:6%}
+.chapter-list .title i{ width:55%; line-height:54px; float:left; text-align:left; color:#252525; font-family:"宋体"}
+.chapter-list .title .none{ width:50px; height:50px; float:left}
+.chapter-list .title .jia{ width:50px; height:50px; float:left; background-position:-20px 0}
+.chapter-list .title .jian{ width:50px; height:50px; float:left; background-position:-60px 0}
+.chapter-list .title span{ width:10%; height:35px; padding-top:8px; line-height:35px; float:left; font-weight:300; font-size:14px}
+.chapter-list .title span .buy-botton{ width:110px; height:35px; padding-left:11px; float:left; line-height:35px}
+/*章节练习知识点*/
+.zhishi li{ width:auto; float:left; margin:10px; font-family:"宋体"; line-height:35px; color:#999; white-space:nowrap}
+.zhishi li.bg{ width:auto; float:left;border-bottom:#cc0000 solid 2px;  margin:10px; font-family:"宋体"; line-height:35px; color:#999; white-space:nowrap}
+.zhishi li.bg a:link{ color:#cc0000}
+.zsout{ border-bottom:#fff solid 2px;}
+.zsover{ border-bottom:#cc0000 solid 2px;}
+.shiti{ width:96%; padding:2%}
+.shiti .jie-name{ width:84%; margin:0px 8%;  line-height:80px; border-bottom:#e8e8e8 solid 1px; font:26px/80px "黑体"}
+.shiti .tishi{line-height:30px; color:#999; background:#fafafa; width:99%; padding-left:1%; font-size:14px; text-align:left}
+.shiti .jie-content{ width:80%; margin:0px 10%; padding-top:30px; line-height:30px; text-align:left}
+.shiti .jie-content img{ padding:10px 0;}
+/*练习记录*/
+.record{ width:100%; background:#f5f4f9; height:64px;-moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px}
+.record .title{ width:506px; padding-left:20px; text-align:left; float:left;font:20px/64px "黑体"}
+.recordsift{ width:788px; padding:20px 20px 10px 20px}
+.moni-list .title ol{ width:555px; height:60px; padding-top:24px; padding-left:30px; float:left; text-align:left; font-family:"宋体"; background-position:-560px -90px}
+.moni-list .title ol.title{ line-height:40px; width:100%; float:left}
+.moni-list .title ol dl{ line-height:40px; padding-right:30px; float:left; font-size:12px; color:#999}
+/*.moni-list .title ol p {color: #999;float: left;font-size: 12px;line-height: 40px;padding-right: 30px;}*/
+.moni-list .title ol p {border: 0 none;margin: 0;padding: 0;display: inline;}
+/*我的收藏*/
+.collect-box{ width:828px; border-bottom:#ccc solid 1px; border-top:#FFF solid 1px;}
+.collect-fl{ width:156px; font-size:16px;vertical-align:middle;text-align:center; background-color:#f5f4f9}
+.collect-fr{ width:670px;background-color:#fff;}
+.collectlist li{ width:95%; padding-left:5%; height:50px; color:#444; float:left; line-height:50px; border-bottom:#e8e8e8 dotted 1px;}
+.collectlist .out{ background:#fff}
+.collectlist .over{ background:#f9f9f9}
+.collectlist li em{ width:auto; float:left; padding-right:20px; font-size:14px}
+.collectlist li i{ width:100px; line-height:30px; padding-top:10px; float:right; padding-right:20px; font-size:14px}
+/*题型展示*/
+.tx{ border-bottom:#e8e8e8 solid 1px; padding:20px; width:958px; height:auto;}
+.tx .tx-pic{ width:350px; height:auto; float:left;}
+.tx .tx-fr{ width:588px; height:auto; float:right;}
+.tx .tx-fr .title{ width:100%; text-align:center; margin-bottom:20px; font:20px/55px "微软雅黑"; color:#000; border-bottom:#e8e8e8 dashed 1px}
+.tx .tx-fr .list li{ width:294px; height:30px; line-height:30px; float:left; white-space:nowrap; text-align:left; font-size:14px}
+a.tip_1 {position:relative; cursor:pointer; font-size:14px; text-decoration:none}
+a.tip_1 span {display:none;text-decoration:none}
+a.tip_1:hover .popbox {display:block;position:absolute;top:14px;_top:5px;left:-3px;width:auto;text-align:left;line-height:24px;background-color:#fefbf9;color:#777;padding:10px;z-index:2;border: 1px solid #fdc097;padding:10px;text-decoration:none}
+a.kuang {width:18px;height:17px;position:absolute;top:0px;left:0px;z-index:9;overflow: hidden}
+.tx .tx-fr .botton-box{ width:100%; height:auto; float:left; padding-top:30px;}
+.tx .tx-fr .botton-box .botton{ width:145px; line-height:40px; float:left; padding-left:80px;}
+.tixing-box{ width:957px; border:#efefef solid 1px; border-bottom:none; height:auto; float:left; margin:20px}
+/*pause*/
+.pause{background-image: url("image/coffee-pause.png");background-position: center 40px;background-repeat: no-repeat;height: 318px;text-align: center;width: 487px;}
+.f-f14 {font-size: 14px;line-height: 25px;}
+.f-f16 {font-size: 16px;line-height: 30px;}
+.f-f18 {font-size: 18px;line-height: 35px;}

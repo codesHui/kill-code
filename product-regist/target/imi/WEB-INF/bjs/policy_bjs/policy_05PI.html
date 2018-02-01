@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--<#include "comm.ftl" /><#include "bjsAdmin.ftl"/><@doctype />  -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>信息管理</title>
+
+<!--<@cssJs /> -->
+</head>
+	<body>
+	<!--<@logonTop user="${userNickName}" />-->
+	<!-- <@adminnav title="信息管理"  second="保单信息查询"/> -->
+	<!-- 审核部分05pi保赔保险 -->
+	<div class="product_manager_two height_420" align="center" style="height: 500px" >
+		<!-- height:405px 具体内容 -->
+		<div class="width_990">
+			<!-- 上部分 -->
+			<div class="shang" style="height: 380px;"> 
+				<!-- 左边 -->
+				<div class="shangleft margin_top_15">
+					
+					<div class="onebox">
+						<div class="leftname">保单号</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.policyNo}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">被保险人名称</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;" title="${reportPolicy.insuredName}">
+								<#if (reportPolicy.insuredName??) && (reportPolicy.insuredName?length gt 20)>
+ 								     ${reportPolicy.insuredName?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.insuredName}
+								</#if>
+							</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">船舶种类</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.vesselsType}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">总吨位</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.totalTonnage}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">累计责任限额</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.totalAccidentLimit}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">币种</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.currency}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">船级</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.vesselsLevel}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">船籍港</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.vesselsPort}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">终保日期</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">
+								<#if ((reportPolicy.policyEndTime??)&&(reportPolicy.policyEndTime!="")&&(reportPolicy.policyEndTime?length gt 7))>
+								${reportPolicy.policyEndTime?substring(0,4)}/${reportPolicy.policyEndTime?substring(4,6)}/${reportPolicy.policyEndTime?substring(6,8)}
+								</#if>
+							</span>						
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">每次事故免赔额</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.franchise}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">保险附加条款</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;" title="${reportPolicy.addTerm}">
+								<#if (reportPolicy.addTerm??) && (reportPolicy.addTerm?length gt 20)>
+ 								     ${reportPolicy.addTerm?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.addTerm}
+								</#if>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- 右边 -->
+				<div class=" shangleft float_left margin_top_15">
+					<div class="onebox">
+						<div class="leftname">保险人名称</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.appntName}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">船舶名称</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;" title="${reportPolicy.vesselsName}">
+								<#if (reportPolicy.vesselsName??) && (reportPolicy.vesselsName?length gt 20)>
+ 								     ${reportPolicy.vesselsName?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.vesselsName}
+								</#if>
+							</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">建造年份</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.produceTime}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">航行区域</div>
+						<div class="nochange2">						
+							<span style="padding-left: 7px;" title="${reportPolicy.tradingLimit}">
+								<#if (reportPolicy.tradingLimit??) && (reportPolicy.tradingLimit?length gt 20)>
+ 								     ${reportPolicy.tradingLimit?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.tradingLimit}
+								</#if>
+							</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">保险费</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.prem}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">保险主条款</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;" title="${reportPolicy.mainTerm}">
+								<#if (reportPolicy.mainTerm??) && (reportPolicy.mainTerm?length gt 20)>
+ 								     ${reportPolicy.mainTerm?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.mainTerm}
+								</#if>
+							</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">船舶识别号/编号</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.vesselsNo}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">起保日期</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">
+								<#if ((reportPolicy.policyStartTime??)&&(reportPolicy.policyStartTime!="")&&(reportPolicy.policyStartTime?length gt 7))>
+								${reportPolicy.policyStartTime?substring(0,4)}/${reportPolicy.policyStartTime?substring(4,6)}/${reportPolicy.policyStartTime?substring(6,8)}
+								</#if>
+							</span>					
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">每次责任事故限额</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;">${reportPolicy.accidentLimit_05PI}</span>
+						</div>
+					</div>
+					<div class="onebox">
+						<div class="leftname">特别约定</div>
+						<div class="nochange2">
+							<span style="padding-left: 7px;" title="${reportPolicy.specialAgreement}">
+								<#if (reportPolicy.specialAgreement??) && (reportPolicy.specialAgreement?length gt 20)>
+ 								     ${reportPolicy.specialAgreement?substring(0,20)}......
+ 								     <#else>
+ 								     ${reportPolicy.specialAgreement}
+								</#if>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fisrt_bottom_xian"></div>
+	<!--<#include "ufoot.html"/><!--尾部结束-->
+	</body>
+</html>
